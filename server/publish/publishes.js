@@ -65,25 +65,6 @@ Meteor.publish("favQuestions", function(limit) {
         }
     })
 });
-Meteor.publish("unansQuestions", function(limit) {
-    return Qs.find({
-        'givenAnswers.answererId': {
-            $ne: this.userId
-        },
-        ownerId : {
-            $ne: this.userId
-        }
-    }, {
-        sort: {
-            createdAt: -1
-        },
-        limit: limit,
-        fields: {
-            givenAnswers: 0
-        }
-    })
-});
-
 
 Meteor.publish("allQuestions", function(limit) {
     return Qs.find({
@@ -116,24 +97,6 @@ Meteor.publish("searchQuestions", function(limit,query) {
                 givenAnswers: false
             }
         })
-});
-
-Meteor.publish("answeredQuestions", function(limit) {
-    that = this;
-    return Qs.find({
-        'givenAnswers.answererId': that.userId,
-        ownerId: {
-            $ne: that.userId
-        }
-    },{
-        sort: {
-            createdAt: -1
-        },
-        limit: limit,
-        fields: {
-            givenAnswers: 0
-        }
-    })
 });
 
 Meteor.publish('answers',function(){

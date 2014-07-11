@@ -1,3 +1,22 @@
+//the ask template
+
+//CREATED
+Template.ask.created = function() {
+    Session.set('action', 'ask');
+    answerArray = [
+        {
+            id: Random.id(),
+            value: ''
+        },
+        {
+            id: Random.id(),
+            value: ''
+        }
+    ];
+    Session.set('answerArr', answerArray);
+}
+
+//EVENTS
 Template.ask.events = {
     'click #addButon': function() {
         var answerArray = Session.get('answerArr');
@@ -62,34 +81,7 @@ Template.ask.events = {
 }
 
 
-Template.answer.events = {
-    'click .delButton': function(e) {
-        var thisId = $(e.target).attr("id");
-
-        var answerArray = Session.get('answerArr');
-
-        var filteredArray = _.filter(answerArray,function(item){
-           return item.id != thisId;
-        });
-
-        Session.set('answerArr', filteredArray);
-    }
-}
-
-Template.ask.created = function() {
-    Session.set('action', 'ask');
-    answerArray = [
-        {
-            id: Random.id(),
-            value: ''
-        },
-        {
-            id: Random.id(),
-            value: ''
-        }
-    ];
-    Session.set('answerArr', answerArray);
-}
+//HELPERS
 Template.ask.helpers({
     coins: function() {
         return Meteor.user().coins;
@@ -123,3 +115,23 @@ Template.ask.helpers({
         return Session.get ('action') === 'ask';
     }
 });
+
+//answer template
+
+//EVENTS
+Template.answer.events = {
+    'click .delButton': function(e) {
+        var thisId = $(e.target).attr("id");
+
+        var answerArray = Session.get('answerArr');
+
+        var filteredArray = _.filter(answerArray,function(item){
+           return item.id != thisId;
+        });
+
+        Session.set('answerArr', filteredArray);
+    }
+}
+
+
+
