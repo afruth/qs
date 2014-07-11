@@ -4,3 +4,4 @@
 /.meteor/.gitignore
 /.meteor/packages
 /.meteor/release
+/server/kadira.js
