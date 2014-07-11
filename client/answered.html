@@ -1,0 +1,16 @@
+<template name="answered">
+
+                  <h2>Answered Q's</h2>
+{{#if question.count}}
+    {{#each question}}
+        {{#if isAvailable this}}
+            {{>qtemplate}}
+        {{else}}
+            {{>qtemplateown}}
+        {{/if}}
+    {{/each}}
+    {{>loadMore}}
+{{else}}
+    {{>notFound}}
+{{/if}}
+</template>

@@ -1,0 +1,18 @@
+<template name="unanswered">
+                  <h2>Unanswered Q's</h2>
+{{#with newQuestion}}
+    {{>newQ newQuestion}}
+{{/with}}
+{{#if question.count}}
+    {{#each question}}
+        {{#if isAvailable this}}
+            {{>qtemplate}}
+        {{else}}
+            {{>qtemplateown}}
+        {{/if}}
+    {{/each}}
+    {{>loadMore}}
+{{else}}
+    {{>notFound}}
+{{/if}}
+</template>

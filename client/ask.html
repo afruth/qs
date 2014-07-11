@@ -1,0 +1,55 @@
+<template name="ask">
+    {{#if isAsk}}
+    <div class="col-md-12">
+
+        <h2>Ask your Q</h2>
+        <p>You ask your Q by typing the Q text below. You need to choose the amount of coins you are willing to spend on answers (1 coin = 1 answer). And then you need to choose between 2 and 6 possible answers to your question. Choose wisely! You cannot edit your Q once asked. You can, however, later increase the amount of coins you want to spend on it.</p>
+            <div class="form-group">
+                <label for="question">Your Q:</label>
+                <textarea maxlength="500" class="form-control" id="question" name="question"></textarea>
+            </div>
+    </div>
+
+            <div class="col-md-6">
+                <h3>Pick your possible answers:</h3>
+                    {{#each answerArray}}
+                        {{>answer}}
+                    {{/each}}
+                {{#if leftAnswers}}
+                <div class="addNewDiv pt10">
+                    <button class="btn btn-success" id="addButon" type="button">Add an answer</button> (still room for {{leftAnswers}})
+                </div>
+                {{/if}}
+
+            </div>
+
+            <div class="col-md-6">
+                <h3>Invest coins</h3>
+                <p>Each answer is a coin. Choose how many coins you want to invest. Every new Q comes with 50 free answers.</p>
+                <div class="form-group">
+                    <label for="coins">You have {{coins}} coins. Invest:</label>
+                    <input type="number" class="form-control" id="coins" min="0" max="{{coins}}" />
+
+                </div>
+            </div>
+            <div class="col-md-12 pt20">
+                <button class="btn btn-default center-block" id="saveQ">Save your changes!</button>
+            </div>
+    {{else}}
+    <div class="col-md-12">
+        <h2>Congrats! Your Q is now travelling on the internets!</h2>
+        <p>You can see it in all it's glory <a href="/">on the front page.</a></p>
+    </div>
+    {{/if}}
+</template>
+
+
+
+<template name="answer">
+    <div class="input-group pt10">
+        <input class="form-control answer" maxlength="30" placeholder="Answer (max 30 chars)" name="answer" />
+        <span class="input-group-btn">
+            <button class="btn btn-danger delButton" id="{{id}}" data-id="{{id}}" type="button">Delete</button>
+        </span>
+    </div>
+</template>

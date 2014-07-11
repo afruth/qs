@@ -1,0 +1,158 @@
+<template name="qlist">
+<h2>Latest Q's</h2>
+    {{#with newQuestion}}
+        {{>newQ newQuestion}}
+    {{/with}}
+{{#if question.count}}
+    {{#unless loggingIn}}
+    {{#each question}}
+
+        {{#if isAvailable this}}
+            {{>qtemplate}}
+        {{else}}
+            {{>qtemplateown}}
+        {{/if}}
+    {{/each}}
+    {{/unless}}
+    {{>loadMore question}}
+{{else}}
+    {{>notFound}}
+{{/if}}
+</template>
+
+<template name="newQ">
+
+    {{#if count}}
+        <div class="btn-group btn-group-justified mt10">
+            <a class="loadMore btn btn-primary" href="#">{{count}} new Q's.</a>
+        </div>
+    {{/if}}
+
+</template>
+
+<template name='qtemplate'>
+    <div class="col-md-12 success mt10 que">
+            <div class="user clearfix">
+                <a href="/profile/{{username._id}}/{{username.slug}}">
+                <img src="{{username.profile.avatar}}" />
+                    </a>
+                <div class="coins">
+                    {{coins}}
+                </div>
+                <p class="center">coins</p>
+            </div>
+            <div class="question">
+                <h4><a href="/q/{{_id}}/{{slug this}}">Q by {{username.profile.name}}</a></h4>
+                <p>{{text}}</p>
+            </div>
+
+            <div class="answers">
+            <p>{{#each answers}}
+                    <button class="btn btn-success answerButton" id="{{this.answer}}" data-qid="{{../_id}}">{{this.answer}}</button>
+                {{/each}}</p>
+            </div>
+        {{>actionButtons}}
+        {{>flipButton}}
+        {{>shareButtons}}
+    </div>
+</template>
+
+
+<template name='qtemplateown'>
+    <div class="col-md-12 info mt10 que">
+        <div class="col-md-6">
+            <div class="user clearfix">
+                <a href="/profile/{{username._id}}/{{username.slug}}">
+                <img src="{{username.profile.avatar}}" />
+                    </a>
+                <div class="coins">
+                    {{coins}}
+                </div>
+                <div class="center">coins</div>
+            </div>
+            <div class="question">
+                <h4><a href="/q/{{_id}}/{{slug this}}">Q by {{username.profile.name}}</a></h4>
+                <p>{{text}}</p>
+            </div>
+            <!--
+            <div class="answerLength">
+                <p>{{#if totalAnswers}}{{totalAnswers}}{{else}}0{{/if}} Answers</p>
+            </div>-->
+        </div>
+        <div class="col-md-6">
+            <div class="pad10 mt10">
+                <div class="highchart" id="{{_id}}"></div>
+                <!--{{#each preppedAnswers this}}
+                    {{> prepAnswer}}
+                {{/each}}-->
+            </div>
+        </div>
+        {{>actionButtons}}
+        {{#if flipped}}
+            {{>flipButton}}
+        {{/if}}
+        {{>shareButtons}}
+    </div>
+</template>
+
+<template name="prepAnswer">
+    <b>{{text}}</b><br>
+    <div class="count"><div class="count-inside bg-primary"  style="width:{{width}}%;background-color:rgb(0,{{width}},{{width}})">{{count}}</div></div><br>
+</template>
+
+<template name="actionButtons">
+    {{#if currentUser}}
+    <div class="actionButtons">
+        {{#if isOwner}}
+            {{#unless isIncreasing}}
+            <button class="increase btn btn-warning btn-xs" data-toggle="tooltip" {{hasCoins}} title="Increase coins" data-qid="{{_id}}">
+                <span class="glyphicon glyphicon-plus"></span>
+            </button>
+            {{else}}
+                    <input type="number" class="input-xs" id="increaseCoins" />
+                        <button class="addCoins btn btn-warning btn-xs" type="button" data-qid="{{_id}}">Add! (max {{coins}} coins)</button>
+            {{/unless}}
+        {{/if}}
+            <button class="bomb btn btn-danger btn-xs" data-toggle="tooltip" {{isBombed}} {{isPraised}} title="Report this Q" data-qid="{{_id}}">
+                {{bombs.length}} <span class="glyphicon glyphicon-ban-circle"></span>
+            </button>
+            <button class="praise btn btn-success btn-xs" data-toggle="tooltip" {{isPraised}} {{isBombed}} title="Praise this Q"  data-qid="{{_id}}">
+                {{praises.length}} <span class="glyphicon glyphicon-thumbs-up"></span>
+            </button>
+        <button class="star btn btn-{{#if notInFav}}default{{else}}primary{{/if}} btn-xs" data-toggle="tooltip" title="Favorite this Q"  data-qid="{{_id}}">
+            <span class="glyphicon glyphicon-star{{#if notInFav}}-empty{{/if}}"></span>
+        </button>
+    </div>
+    {{/if}}
+</template>
+
+<template name="flipButton">
+    <div class="flipButton">
+        <button class="flip{{#if flipped}}-on{{else}}-off{{/if}} btn btn-{{#if flipped}}warning{{else}}default{{/if}} btn-xs" data-toggle="tooltip" title="Flip this" data-qid="{{_id}}">
+            <span class="glyphicon glyphicon-random"></span>
+        </button>
+    </div>
+</template>
+
+
+<template name="loadMore">
+    {{#if hasMore count}}
+
+    {{else}}
+        <div class="btn-group btn-group-justified mt10">
+            <a href="#" id="loadMore" class="center-block btn btn-primary">Load more</a>
+        </div>
+    {{/if}}
+</template>
+
+<template name="shareButtons">
+    <div class="shareButtons">
+        <span class="fbButton">{{>facebookShare config}}</span>
+        <a href="https://twitter.com/share" data-url="{{config.href}}" data-text="Help me answer this question on Q:" class="twitter-share-button" data-lang="en">Tweet</a>
+    </div>
+</template>
+
+
+<template name="notFound">
+    <h4>Nope. No Q's here</h4>
+</template>

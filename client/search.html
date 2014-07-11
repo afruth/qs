@@ -1,0 +1,16 @@
+<template name="search">
+        <h2>You searched for: {{searchQuery}} {{#if currentUser}}<button id='saveSearch' {{isSaved}} class="btn btn-xs btn-primary">{{#if isSaved}}Already saved{{else}}Save search{{/if}}</button>{{/if}}</h2>
+{{#if question.count}}
+    {{#each question}}
+        {{#if isAvailable this}}
+            {{>qtemplate}}
+        {{else}}
+            {{>qtemplateown}}
+        {{/if}}
+    {{/each}}
+    {{>loadMore}}
+{{else}}
+    {{>notFound}}
+{{/if}}
+
+</template>

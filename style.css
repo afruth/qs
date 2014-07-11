@@ -1,0 +1,177 @@
+/* CSS declarations go here */
+.pt10 {
+    padding-top: 10px;
+}
+.pt20 {
+    padding-top: 20px;
+}
+.pad20 {
+    padding:20px;
+}
+
+.mt10 {
+    margin-top:10px;
+}
+
+
+.user {
+    width:40px;
+    float:left;
+    height:100px;
+    margin:10px;
+    margin-left:0;
+    position:absolute;
+    left: 0;
+    top:0;
+
+}
+
+.success .user {
+    left:15px;
+}
+
+.question {
+    min-height: 100px;
+    padding-left: 70px;
+}
+
+.success .question {
+    padding-left: 85px;
+}
+
+.answers {
+    clear:both;
+    text-align:center;
+}
+
+.ml20 {
+    margin-left: 20px;
+}
+.coins {
+    font-size:2em;
+    text-align:center;
+}
+
+.count {
+    width:100%;
+    position:relative;
+}
+.count-inside {
+}
+
+.answerLength {
+    font-size: 2em;
+
+    padding-left: 100px;
+    clear:left;
+}
+
+.actionButtons {
+    position:absolute;
+    right:0;
+    top:0;
+    float:left;
+}
+.flipButton {
+    position:absolute;
+    right:0;
+    bottom:0;
+    float:left;
+}
+
+.shareButtons {
+    position:absolute;
+    left:10px;
+    bottom:5px;
+    float:left;
+}
+
+.que {
+    position:relative;
+    border: 2px solid;
+    border-radius:5px;
+    padding-bottom:30px;
+}
+
+.que.success {
+    border-color: #59822c;
+}
+
+.que.info {
+    border-color:#2fa4e7;
+}
+
+.user img, .profile-pic img {
+    width:48px;
+    min-height:40px;
+    background-image: url('defaultuser.png') center no-repeat;
+}
+
+.userCoins: {
+    text-align:right;
+}
+
+.at-social button {
+    width:220px;
+}
+
+
+
+select,
+textarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input {
+  height:43px;
+}
+
+input[type="number"].input-xs {
+    height:26px;
+    margin-bottom: 0px;
+    max-width:100px;
+}
+
+
+#atError {
+    display:none;
+}
+
+.delSearch {
+    margin-top:-5px;
+}
+
+.navbar-brand {
+    z-index:1000;
+}
+
+body { padding-top: 70px; }
+
+.twitter-share-button {
+    margin-bottom:-5px;
+}
+
+
+#iron-router-progress {
+    background-color : #2fa4e7;
+    box-shadow       : 0 0 5px black;
+}
+
+
+
+
+footer {
+    padding-top:20px;
+    padding-bottom:20px;
+}

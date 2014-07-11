@@ -1,0 +1,25 @@
+{
+  "packages": {
+    "moment": {},
+    "bootstrap-3": {},
+    "iron-router": {},
+    "collection2": {},
+    "iron-router-progress": {},
+    "font-awesome": {},
+    "roles": {},
+    "autoform": {},
+    "gravatar": {},
+    "bootstrap-errors": {},
+    "accounts-templates-bootstrap": {},
+    "collection-helpers": {},
+    "bootstrap-wysiwyg": {},
+    "meds": {},
+    "underscore-string-latest": {},
+    "headly": {},
+    "kadira": {},
+    "facebook-sdk": {},
+    "highcharts-with-exporting": {},
+    "fast-render": {},
+    "iron-router-ga": {}
+  }
+}
