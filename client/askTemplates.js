@@ -1,7 +1,7 @@
 //the ask template
 
 //CREATED
-Template.ask.created = function() {
+Template.ask.created = function () {
     Session.set('action', 'ask');
     answerArray = [
         {
@@ -18,17 +18,17 @@ Template.ask.created = function() {
 
 //EVENTS
 Template.ask.events = {
-    'click #addButon': function() {
+    'click #addButon': function () {
         var answerArray = Session.get('answerArr');
         answerArray.push({
             id: Random.id()
         });
         Session.set('answerArr', answerArray);
     },
-    'click #saveQ': function(e) {
+    'click #saveQ': function (e) {
         e.preventDefault();
         var arr = [];
-        _.each($('.answer'), function(item){
+        _.each($('.answer'), function (item) {
             if ($(item).val() != '')
                 arr.push({
                     answer: $(item).val(),
@@ -64,7 +64,7 @@ Template.ask.events = {
         }
 
 
-        Meteor.call('askQuestion', qobj, function(e,r) {
+        Meteor.call('askQuestion', qobj, function (e, r) {
             if (e) {
                 Errors.throw(e.reason);
 
@@ -72,7 +72,9 @@ Template.ask.events = {
             }
 
             Session.set('action', 'answer');
-            Router.go('question',{_id: r})
+            Router.go('question', {
+                _id: r
+            })
         });
 
 
@@ -82,17 +84,17 @@ Template.ask.events = {
 
 //HELPERS
 Template.ask.helpers({
-    coins: function() {
+    coins: function () {
         return Meteor.user().coins;
     },
-    noOfChars: function() {
+    noOfChars: function () {
         if (!Session.get("noOfCharsLeft"))
             Session.set("noOfCharsLeft", 500);
 
 
         return Session.get("noOfCharsLeft");
     },
-    answerArray: function() {
+    answerArray: function () {
         var answerArray = Session.get("answerArr")
 
         while (answerArray.length < 2) {
@@ -108,10 +110,10 @@ Template.ask.helpers({
     },
     leftAnswers: function () {
         var leftAnswers = 6 - Session.get("answerArr").length;
-        return (leftAnswers > 0)?leftAnswers:false;
+        return (leftAnswers > 0) ? leftAnswers : false;
     },
-    isAsk: function() {
-        return Session.get ('action') === 'ask';
+    isAsk: function () {
+        return Session.get('action') === 'ask';
     }
 });
 
@@ -119,18 +121,15 @@ Template.ask.helpers({
 
 //EVENTS
 Template.answer.events = {
-    'click .delButton': function(e) {
+    'click .delButton': function (e) {
         var thisId = $(e.target).attr("id");
 
         var answerArray = Session.get('answerArr');
 
-        var filteredArray = _.filter(answerArray,function(item){
-           return item.id != thisId;
+        var filteredArray = _.filter(answerArray, function (item) {
+            return item.id != thisId;
         });
 
         Session.set('answerArr', filteredArray);
     }
 }
-
-
-

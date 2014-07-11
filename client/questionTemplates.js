@@ -1,31 +1,31 @@
-Template.favorites.created = function() {
-    Session.set('qlimit',20);
-    Deps.autorun(function(){
-        Meteor.subscribe('answeredQuestions',Session.get('qlimit'));
+Template.favorites.created = function () {
+    Session.set('qlimit', 20);
+    Deps.autorun(function () {
+        Meteor.subscribe('answeredQuestions', Session.get('qlimit'));
     })
 }
 
 Template.favorites.helpers({
-   question: function() {
-       var favoriteQ = Meteor.user().profile.favorites;
+    question: function () {
+        var favoriteQ = Meteor.user().profile.favorites;
         if (!favoriteQ)
             favoriteQ = [];
 
-       return Qs.find({
-        _id: {
-            $in: favoriteQ
-        }
-    }, {
-        sort: {
-            createdAt: -1
-        }
-    });
-   }
+        return Qs.find({
+            _id: {
+                $in: favoriteQ
+            }
+        }, {
+            sort: {
+                createdAt: -1
+            }
+        });
+    }
 });
 
 
 Template.questionDefault.helpers({
-    isAvailable: function(qid) {
+    isAvailable: function (qid) {
         //we check if the user can vote
         //not logged in
         if (!Meteor.user() && !Meteor.loggingIn())
@@ -61,64 +61,64 @@ Template.questionDefault.helpers({
     }
 })
 
-Template.mylist.created = function() {
-    Session.set('qlimit',20);
-    Deps.autorun(function(){
-        Meteor.subscribe('myQuestions',Session.get('qlimit'));
+Template.mylist.created = function () {
+    Session.set('qlimit', 20);
+    Deps.autorun(function () {
+        Meteor.subscribe('myQuestions', Session.get('qlimit'));
     })
 }
 
 Template.mylist.helpers({
-   question: function() {
-    return Qs.find({
-        ownerId: Meteor.userId()
-    }, {
-        sort: {
-            createdAt: -1
-        }
-    })
-   }
+    question: function () {
+        return Qs.find({
+            ownerId: Meteor.userId()
+        }, {
+            sort: {
+                createdAt: -1
+            }
+        })
+    }
 });
 
-Template.profile.created = function() {
-    Session.set('qlimit',20);
-    Deps.autorun(function(){
-        Meteor.subscribe('myQuestions',Session.get('qlimit'),Session.get('userProfile'));
+Template.profile.created = function () {
+    Session.set('qlimit', 20);
+    Deps.autorun(function () {
+        Meteor.subscribe('myQuestions', Session.get('qlimit'), Session.get('userProfile'));
     })
 }
 
 Template.profile.helpers({
-   user: function() {
+    user: function () {
         return Meteor.users.findOne(Session.get('userProfile'));
-   },
-   question: function() {
-    return Qs.find({
-        ownerId: Session.get('userProfile')
-    }, {
-        sort: {
-            createdAt: -1
-        }
-    })
-   }
+    },
+    question: function () {
+        return Qs.find({
+            ownerId: Session.get('userProfile')
+        }, {
+            sort: {
+                createdAt: -1
+            }
+        })
+    }
 });
 
-Template.question.created = function() {
-    Session.set('qlimit',20);
-    Deps.autorun(function(){
-        Meteor.subscribe('unansQuestions',Session.get('qlimit'));
+Template.question.created = function () {
+    Session.set('qlimit', 20);
+    Deps.autorun(function () {
+        Meteor.subscribe('unansQuestions', Session.get('qlimit'));
     })
 }
 
 Template.question.helpers({
-   question: function() {
+    question: function () {
         return Qs.find({
-        _id: Session.get('questionId')
+            _id: Session.get('questionId')
         })
-   },
-    isNewQ: function() {
-      return Session.get('newq') ;
     },
-    isAvailable: function(qid) {
+    isNewQ: function () {
+        return Session.get('newq');
+    },
+    isAvailable: function (qid) {
         //we check if the user can vote
         //not logged in
         if (!Meteor.user() && !Meteor.loggingIn())
@@ -155,57 +155,57 @@ Template.question.helpers({
 });
 
 Template.question.events = {
-    'click #loadMore': function(e) {
+    'click #loadMore': function (e) {
         e.preventDefault();
 
-        Session.set('qlimit',Session.get('qlimit') + 20);
+        Session.set('qlimit', Session.get('qlimit') + 20);
     }
 }
 
 Template.qlist.helpers({
-   question: function() {
-       return Qs.find({
-           createdAt: {
+    question: function () {
+        return Qs.find({
+            createdAt: {
                 $lte: Session.get('lastDate')
             }
-       },{
-        sort: {
-            createdAt: -1
-        }
-       });
+        }, {
+            sort: {
+                createdAt: -1
+            }
+        });
     },
-    slug: function(q) {
-        return _.slugify( _(q.text).prune(60) );
+    slug: function (q) {
+        return _.slugify(_(q.text).prune(60));
     },
-    newQuestion: function() {
+    newQuestion: function () {
         return Qs.find({
             createdAt: {
                 $gt: Session.get('lastDate')
             }
-        },{
-        sort: {
-            createdAt: -1
-        }
-       });
-   }
+        }, {
+            sort: {
+                createdAt: -1
+            }
+        });
+    }
 });
 
-Template.qlist.created = function() {
-    Session.set('qlimit',20);
-    Deps.autorun(function(){
-        Meteor.subscribe('allQuestions',Session.get('qlimit'));
+Template.qlist.created = function () {
+    Session.set('qlimit', 20);
+    Deps.autorun(function () {
+        Meteor.subscribe('allQuestions', Session.get('qlimit'));
     })
 }
 
 Template.loadMore.events = {
-        'click #loadMore': function(e) {
+    'click #loadMore': function (e) {
         e.preventDefault();
-        Session.set('qlimit',Session.get('qlimit') + 20);
+        Session.set('qlimit', Session.get('qlimit') + 20);
     }
 }
 
 Template.loadMore.helpers({
-    hasMore: function(count) {
+    hasMore: function (count) {
         if (count < Session.get('qlimit'))
             return true;
 
@@ -214,77 +214,77 @@ Template.loadMore.helpers({
 })
 
 Template.qtemplate.events = {
-    'click .answerButton': function(e) {
+    'click .answerButton': function (e) {
         e.preventDefault();
         var question = $(e.target).data("qid");
         var answer = $(e.target).attr("id");
-        Meteor.call('vote',question,answer, function(e,s) {
-            if(e)
+        Meteor.call('vote', question, answer, function (e, s) {
+            if (e)
                 Errors.throw(e.reason);
         });
     }
 }
 
-Template.qtemplateown.rendered = function() {
+Template.qtemplateown.rendered = function () {
     var that = this;
-    Deps.autorun(function() {
+    Deps.autorun(function () {
 
         var que = Qs.findOne(that.data._id);
         q = que.answers;
         var preppedAnswer = [];
         var totalA = 0;
-        _.each(q, function(item) {
+        _.each(q, function (item) {
 
-                preppedAnswer.push([item.answer,item.number]);
+            preppedAnswer.push([item.answer, item.number]);
 
-                totalA = totalA + item.number;
-            })
+            totalA = totalA + item.number;
+        })
 
         var chartOpt = {
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false
-                },
-                title: {
-                    text: totalA + ' answers'
-                },
-                tooltip: {
-                    pointFormat: '<b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: false
-                        },
-                        showInLegend: true
-                    }
-                },
-                series: [{
-                    type: 'pie',
-                    name: 'Answers',
-                    data: preppedAnswer
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: totalA + ' answers'
+            },
+            tooltip: {
+                pointFormat: '<b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Answers',
+                data: preppedAnswer
                 }],
-                exporting: {
-                    enabled: false
-                    }
+            exporting: {
+                enabled: false
             }
+        }
 
-        $("#"+que._id).highcharts(chartOpt);
+        $("#" + que._id).highcharts(chartOpt);
 
     })
 
 }
 Template.qtemplateown.helpers({
-    preppedAnswers: function() {
+    preppedAnswers: function () {
         //we need to do stats on these answers
         q = this;
         var preppedAnswer = [];
 
         var totalA = 0;
-        _.each(q.answers, function(item) {
+        _.each(q.answers, function (item) {
             var answer = {};
             answer.text = item.answer;
 
@@ -297,20 +297,20 @@ Template.qtemplateown.helpers({
 
         })
 
-        var preppedA = _.sortBy(preppedAnswer, function(item) {
-                return -item.count;
-            })
+        var preppedA = _.sortBy(preppedAnswer, function (item) {
+            return -item.count;
+        })
 
         //var totalA = (ansArr)?ansArr.length:0;
-        _.each(preppedA, function(item) {
-            item.width = (item.count>0)?(item.count / totalA) * 100:0;
+        _.each(preppedA, function (item) {
+            item.width = (item.count > 0) ? (item.count / totalA) * 100 : 0;
         })
         return preppedA;
     },
-    totalAnswers: function() {
-        q=this;
+    totalAnswers: function () {
+        q = this;
         var totalA = 0;
-        _.each(q.answers, function(item) {
+        _.each(q.answers, function (item) {
 
             totalA = totalA + item.number;
 
@@ -319,15 +319,17 @@ Template.qtemplateown.helpers({
 
         return totalA;
     },
-    username: function() {
+    username: function () {
         owner = this.ownerId;
-        var user = Meteor.users.findOne({_id:owner});
+        var user = Meteor.users.findOne({
+            _id: owner
+        });
         user.slug = _.slugify(user.profile.name);
         return user;
     },
-    notInFav: function() {
+    notInFav: function () {
         that = this;
-        var inFav = _.find(Meteor.user().profile.favorites, function(item) {
+        var inFav = _.find(Meteor.user().profile.favorites, function (item) {
             return item === that._id;
         })
 
@@ -336,56 +338,58 @@ Template.qtemplateown.helpers({
 
         return true;
     },
-    flipped: function() {
+    flipped: function () {
         return Session.get('flipped') === this._id;
     },
-    slug: function(q) {
-        return _.slugify( _(q.text).prune(60) );
+    slug: function (q) {
+        return _.slugify(_(q.text).prune(60));
     }
 })
 Template.qtemplate.helpers({
-    username: function() {
+    username: function () {
         owner = this.ownerId;
-        var user = Meteor.users.findOne({_id:owner});
+        var user = Meteor.users.findOne({
+            _id: owner
+        });
         user.slug = _.slugify(user.profile.name);
         return user;
     },
-    slug: function(q) {
-        return _.slugify( _(q.text).prune(60) );
+    slug: function (q) {
+        return _.slugify(_(q.text).prune(60));
     }
 })
 
 Template.actionButtons.events = {
-    'click .star': function(e) {
+    'click .star': function (e) {
         Meteor.call('addToFavorites', $(e.currentTarget).data("qid"));
     },
-    'click .bomb': function(e) {
+    'click .bomb': function (e) {
         Meteor.call('bombQ', $(e.currentTarget).data("qid"));
     },
-    'click .praise': function(e) {
+    'click .praise': function (e) {
         Meteor.call('praiseQ', $(e.currentTarget).data("qid"));
     },
-    'click .increase': function(e) {
+    'click .increase': function (e) {
         Session.set('isIncreasing', $(e.currentTarget).data("qid"))
     },
-    'click .addCoins': function(e) {
+    'click .addCoins': function (e) {
         var coins = $('#increaseCoins').val();
         if (coins != '' && coins > 0 && coins <= Meteor.user().coins) {
 
-            Meteor.call("addToQuestion",$(e.currentTarget).data("qid"),Number(coins));
+            Meteor.call("addToQuestion", $(e.currentTarget).data("qid"), Number(coins));
         }
         Session.set('isIncreasing', null)
     }
 }
 
-Template.actionButtons.rendered = function() {
+Template.actionButtons.rendered = function () {
     $('.actionButtons button').tooltip();
 };
 
 Template.actionButtons.helpers({
-    notInFav: function() {
+    notInFav: function () {
         that = this;
-        var inFav = _.find(Meteor.user().profile.favorites, function(item) {
+        var inFav = _.find(Meteor.user().profile.favorites, function (item) {
             return item === that._id;
         })
 
@@ -394,96 +398,96 @@ Template.actionButtons.helpers({
 
         return true;
     },
-    isPraised: function() {
+    isPraised: function () {
         that = this;
-        var hasBeen = _.find(that.praises, function(item) {
+        var hasBeen = _.find(that.praises, function (item) {
             return item === Meteor.userId();
         });
 
-        if(hasBeen)
+        if (hasBeen)
             return 'disabled';
 
         return null;
     },
-    isBombed: function() {
+    isBombed: function () {
         that = this;
-        var hasBeen = _.find(that.bombs, function(item) {
+        var hasBeen = _.find(that.bombs, function (item) {
             return item === Meteor.userId();
         });
 
-        if(hasBeen)
+        if (hasBeen)
             return 'disabled';
 
         return null;
     },
-    isOwner: function() {
+    isOwner: function () {
         return this.ownerId === Meteor.userId()
     },
-    isIncreasing: function() {
+    isIncreasing: function () {
         return Session.get('isIncreasing') === this._id;
     },
-    coins: function() {
+    coins: function () {
         return Meteor.user().coins;
     }
 })
 
-Template.flipButton.events= {
-    'click .flip-off': function(e) {
+Template.flipButton.events = {
+    'click .flip-off': function (e) {
         Session.set('flipped', $(e.currentTarget).data('qid'))
     },
-    'click .flip-on': function(e) {
+    'click .flip-on': function (e) {
         Session.set('flipped', '')
     }
 }
 
 Template.flipButton.helpers({
-    flipped: function() {
+    flipped: function () {
         return Session.get('flipped') === this._id;
     }
 })
 
 Template.shareButtons.helpers({
-    location: function() {
+    location: function () {
         return window.location.origin;
     },
-    config: function() {
+    config: function () {
         return {
-            href: window.location.origin + '/q/' + this._id + '/' + _.slugify( _(this.text).prune(60) ),
+            href: window.location.origin + '/q/' + this._id + '/' + _.slugify(_(this.text).prune(60)),
             type: 'button_count'
         }
     }
 })
 
-Template.shareButtons.rendered = function() {
+Template.shareButtons.rendered = function () {
     try {
         FB.XFBML.parse();
         twttr.widgets.load();
-    }catch(e) {}
+    } catch (e) {}
 }
 
 Template.newQ.events = {
-    'click .loadMore': function(e) {
+    'click .loadMore': function (e) {
         e.preventDefault();
-        Session.set('lastDate',new Date);
+        Session.set('lastDate', new Date);
     }
 }
 
 
-Template.search.created = function() {
-    Session.set('qlimit',20);
-    Deps.autorun(function(){
-        Meteor.subscribe('searchQuestions',Session.get('qlimit'),Session.get('searchText'));
+Template.search.created = function () {
+    Session.set('qlimit', 20);
+    Deps.autorun(function () {
+        Meteor.subscribe('searchQuestions', Session.get('qlimit'), Session.get('searchText'));
     })
 }
 
 Template.search.helpers({
-   searchQuery: function() {
-     return Session.get('searchText');
-   },
-   question: function() {
-       return Qs.search(Session.get('searchText'));
-   },
-    isSaved: function() {
+    searchQuery: function () {
+        return Session.get('searchText');
+    },
+    question: function () {
+        return Qs.search(Session.get('searchText'));
+    },
+    isSaved: function () {
         var us = Meteor.users.findOne({
             _id: Meteor.userId(),
             'profile.savedSearches': Session.get('searchText')
@@ -497,8 +501,8 @@ Template.search.helpers({
 });
 
 Template.search.events = {
-    'click #saveSearch': function(e) {
-        Meteor.users.update(Meteor.userId(),{
+    'click #saveSearch': function (e) {
+        Meteor.users.update(Meteor.userId(), {
             $addToSet: {
                 'profile.savedSearches': Session.get('searchText')
             }

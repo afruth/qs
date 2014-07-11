@@ -1,13 +1,26 @@
 <head>
     <title>Q - built with Meteor</title>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=636219033141500&version=v2.0";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+    <script>
+        ! function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = "https://platform.twitter.com/widgets.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, "script", "twitter-wjs");
+    </script>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=636219033141500&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 </head>
 
 <template name="mainLayout">
@@ -34,76 +47,71 @@
 
             <div class="profile col-sm-12 col-md-3" role="navigation">
                 <form>
-                <div class="input-group pt20">
+                    <div class="input-group pt20">
 
-                    <input type="text" class="form-control" id="search">
-                    <span class="input-group-btn">
+                        <input type="text" class="form-control" id="search">
+                        <span class="input-group-btn">
                         <button type="submit" class="btn btn-primary submitSearch">Search</button>
                     </span>
 
-                </div>
+                    </div>
                 </form>
                 {{#if currentUser}}
-                    <h2>Your profile</h2>
-                    <div class="profile-pic">
-                        <img src="{{user.profile.avatar}}" />
-                        <span class="uname">{{user.profile.name}}</span>
-                        <div class="userCoins">You have {{user.coins}} coins.</div>
-                    </div>
-                    <ul class="nav nav-pills nav-stacked mainNav">
-                      <li>
+                <h2>Your profile</h2>
+                <div class="profile-pic">
+                    <img src="{{user.profile.avatar}}" />
+                    <span class="uname">{{user.profile.name}}</span>
+                    <div class="userCoins">You have {{user.coins}} coins.</div>
+                </div>
+                <ul class="nav nav-pills nav-stacked mainNav">
+                    <li>
                         <a href="/ask" class="btn-success">
                           Ask a Q
                         </a>
-                      </li>
-                      <li>
+                    </li>
+                    <li>
                         <a href="/">
                           Latest Q's
                         </a>
-                      </li>
+                    </li>
 
-                      <li>
+                    <li>
                         <a href="/flist">
                           My favorite Q's
                         </a>
-                      </li>
-                      <li>
+                    </li>
+                    <li>
                         <a href="/mylist">
                           My Q's
                         </a>
-                      </li>
+                    </li>
 
-                      <li>
+                    <li>
                         <a href="#" id="logout" class="btn-warning">
                           Logout
                         </a>
-                      </li>
-                        {{#if user.profile.savedSearches}}
-                            <li class="disabled">
-                            <h4>Saved searches</h4>
-                            </li>
-                            {{#each user.profile.savedSearches}}
-                                <li>
-                                    <a href="/search/{{safeUrl this}}">
+                    </li>
+                    {{#if user.profile.savedSearches}}
+                    <li class="disabled">
+                        <h4>Saved searches</h4>
+                    </li>
+                    {{#each user.profile.savedSearches}}
+                    <li>
+                        <a href="/search/{{safeUrl this}}">
                                         {{this}}
                                         <button class="btn btn-danger btn-xs delSearch pull-right" data-qid="{{this}}">
                                             X
                                         </button>
                                     </a>
 
-                                  </li>
-                            {{/each}}
+                    </li>
+                    {{/each}} {{/if}}
 
-                        {{/if}}
-
-                    </ul>
-                {{else}}
-                {{#unless loggingIn}}
+                </ul>
+                {{else}} {{#unless loggingIn}}
                 <h2>Sign up / Sign in</h2>
                 <p>In order to get the best of this app, you need to create an account using one of your social media accounts. Don't worry, we are not getting anything about you except your profile picture, your name and your email for multiple social media account unification. We won't spam you (except for sending kittens your way from time to time)</p>
-                    {{> signinForm}}
-                 {{/unless}}
-                {{/if}}
+                {{> signinForm}} {{/unless}} {{/if}}
 
             </div>
 
@@ -111,7 +119,8 @@
 
         </div>
         <div class="col-md-12">
-            <footer>A weekend project built by <a href="https://twitter.com/andreasfruth">@andreasfruth</a> with <a href="http://meteor.com" target="_blank">Meteor</a> - an amazing and complete JS platform. <a href="http://lemur.ro/does-meteor-deliver/">Read the story.</a></footer>
+            <footer>A weekend project built by <a href="https://twitter.com/andreasfruth">@andreasfruth</a> with <a href="http://meteor.com" target="_blank">Meteor</a> - an amazing and complete JS platform. <a href="http://lemur.ro/does-meteor-deliver/">Read the story.</a>
+            </footer>
         </div>
     </div>
 
@@ -124,6 +133,9 @@
 
 
 <template name="notLoggedIn">
-    <div class="alert alert-error"><p>In order to enjoy the full version you have to be logged-in! Do that using one of your many social media accounts from the menu.</p>
-    <p><a href="/" >Go to the front page.</a></p></div>
+    <div class="alert alert-error">
+        <p>In order to enjoy the full version you have to be logged-in! Do that using one of your many social media accounts from the menu.</p>
+        <p><a href="/">Go to the front page.</a>
+        </p>
+    </div>
 </template>

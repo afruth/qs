@@ -1,39 +1,23 @@
-window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '636219033141500',
-      status     : true,
-      xfbml      : true
-    });
-  };
-
 Meteor.subscribe('allUsers');
 
-
-
-Accounts.ui.config({
-  requestPermissions: {
-    facebook: ['user_likes','public_profile']
-  }
-});
-
-
-
 Template.mainLayout.events = {
-    'click #askAQ': function(e) {
-        Session.set('action','ask');
+    'click #askAQ': function (e) {
+        Session.set('action', 'ask');
         Router.go('ask');
     },
-    'click #logout': function(e) {
+    'click #logout': function (e) {
         e.preventDefault();
         Meteor.logout();
     },
-    'click .submitSearch': function(e) {
+    'click .submitSearch': function (e) {
         e.preventDefault();
 
         if ($('#search').val() != '')
-            Router.go('search',{_id: encodeURIComponent($('#search').val())})
+            Router.go('search', {
+                _id: encodeURIComponent($('#search').val())
+            })
     },
-    'click .delSearch': function(e) {
+    'click .delSearch': function (e) {
         e.preventDefault();
         e.stopPropagation();
         var search = $(e.currentTarget).data('qid');
@@ -45,23 +29,23 @@ Template.mainLayout.events = {
             }
         })
     },
-    'click #toggleNav': function(e) {
+    'click #toggleNav': function (e) {
         e.preventDefault();
         $('.row-offcanvas').toggleClass('active')
     }
 };
 
 Template.mainLayout.helpers({
-    coins: function() {
+    coins: function () {
         if (Meteor.user() && !Meteor.loggingIn())
             return Meteor.user().coins;
 
         return false;
     },
-    user: function() {
+    user: function () {
         return Meteor.user();
     },
-    safeUrl: function(text) {
+    safeUrl: function (text) {
         return encodeURIComponent(text);
     }
 })
@@ -69,13 +53,13 @@ Template.mainLayout.helpers({
 
 //needed to show picture
 
-Template._loginButtonsLoggedInDropdown.user_profile_picture = function() {
+Template._loginButtonsLoggedInDropdown.user_profile_picture = function () {
     return Meteor.user().profile.avatar;
-	};
+};
 
 
 Template._loginButtonsLoggedInDropdown.events({
-    'click #login-buttons-edit-profile': function(event) {
+    'click #login-buttons-edit-profile': function (event) {
         event.stopPropagation();
         Template._loginButtons.toggleDropdown();
         Router.go('/profile/me');

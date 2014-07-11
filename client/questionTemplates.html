@@ -1,55 +1,42 @@
 <!-- Favorite questions -->
 
 <template name="favorites">
-<h2>Favorite Q's</h2>
+    <h2>Favorite Q's</h2>
     {{>questionDefault question}}
 </template>
 
 <template name="mylist">
-                  <h2>Your Q's</h2>
-{{>questionDefault question}}
+    <h2>Your Q's</h2>
+    {{>questionDefault question}}
 </template>
 
 <template name="profile">
-                  <h2>{{user.profile.name}} Q's</h2>
-{{>questionDefault question}}
+    <h2>{{user.profile.name}} Q's</h2>
+    {{>questionDefault question}}
 </template>
 
 <template name="question">
-{{>questionDefault question}}
+    {{>questionDefault question}}
 
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-            var disqus_shortname = 'qius'; // required: replace example with your forum shortname
-
-            /* * * DON'T EDIT BELOW THIS LINE * * */
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'qius'; //
+        (function () {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+    </noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
 </template>
 
 <template name="questionDefault">
-    {{#if this.count}}
-    {{#unless loggingIn}}
-        {{#each this}}
-            {{#if isAvailable this}}
-                {{>qtemplate}}
-            {{else}}
-                {{>qtemplateown}}
-            {{/if}}
-        {{/each}}
-    {{/unless}}
-        {{>loadMore}}
-    {{else}}
-        {{>notFound}}
-    {{/if}}
+    {{#if this.count}} {{#unless loggingIn}} {{#each this}} {{#if isAvailable this}} {{>qtemplate}} {{else}} {{>qtemplateown}} {{/if}} {{/each}} {{/unless}} {{>loadMore}} {{else}} {{>notFound}} {{/if}}
 </template>
 
 
@@ -61,49 +48,43 @@
 
 
 <template name="qlist">
-<h2>Latest Q's</h2>
-    {{#with newQuestion}}
-        {{>newQ newQuestion}}
-    {{/with}}
-
-    {{>questionDefault question}}
+    <h2>Latest Q's</h2>
+    {{#with newQuestion}} {{>newQ newQuestion}} {{/with}} {{>questionDefault question}}
 
 </template>
 
 <template name="newQ">
 
     {{#if count}}
-        <div class="btn-group btn-group-justified mt10">
-            <a class="loadMore btn btn-primary" href="#">{{count}} new Q's.</a>
-        </div>
+    <div class="btn-group btn-group-justified mt10">
+        <a class="loadMore btn btn-primary" href="#">{{count}} new Q's.</a>
+    </div>
     {{/if}}
 
 </template>
 
 <template name='qtemplate'>
     <div class="col-md-12 success mt10 que">
-            <div class="user clearfix">
-                <a href="/profile/{{username._id}}/{{username.slug}}">
+        <div class="user clearfix">
+            <a href="/profile/{{username._id}}/{{username.slug}}">
                 <img src="{{username.profile.avatar}}" />
-                    </a>
-                <div class="coins">
-                    {{coins}}
-                </div>
-                <p class="center">coins</p>
+            </a>
+            <div class="coins">
+                {{coins}}
             </div>
-            <div class="question">
-                <h4><a href="/q/{{_id}}/{{slug this}}">Q by {{username.profile.name}}</a></h4>
-                <p>{{text}}</p>
-            </div>
+            <p class="center">coins</p>
+        </div>
+        <div class="question">
+            <h4><a href="/q/{{_id}}/{{slug this}}">Q by {{username.profile.name}}</a></h4>
+            <p>{{text}}</p>
+        </div>
 
-            <div class="answers">
+        <div class="answers">
             <p>{{#each answers}}
-                    <button class="btn btn-success answerButton" id="{{this.answer}}" data-qid="{{../_id}}">{{this.answer}}</button>
+                <button class="btn btn-success answerButton" id="{{this.answer}}" data-qid="{{../_id}}">{{this.answer}}</button>
                 {{/each}}</p>
-            </div>
-        {{>actionButtons}}
-        {{>flipButton}}
-        {{>shareButtons}}
+        </div>
+        {{>actionButtons}} {{>flipButton}} {{>shareButtons}}
     </div>
 </template>
 
@@ -113,8 +94,8 @@
         <div class="col-md-6">
             <div class="user clearfix">
                 <a href="/profile/{{username._id}}/{{username.slug}}">
-                <img src="{{username.profile.avatar}}" />
-                    </a>
+                    <img src="{{username.profile.avatar}}" />
+                </a>
                 <div class="coins">
                     {{coins}}
                 </div>
@@ -137,39 +118,37 @@
                 {{/each}}-->
             </div>
         </div>
-        {{>actionButtons}}
-        {{#if flipped}}
-            {{>flipButton}}
-        {{/if}}
-        {{>shareButtons}}
+        {{>actionButtons}} {{#if flipped}} {{>flipButton}} {{/if}} {{>shareButtons}}
     </div>
 </template>
 
 <template name="prepAnswer">
-    <b>{{text}}</b><br>
-    <div class="count"><div class="count-inside bg-primary"  style="width:{{width}}%;background-color:rgb(0,{{width}},{{width}})">{{count}}</div></div><br>
+    <b>{{text}}</b>
+    <br>
+    <div class="count">
+        <div class="count-inside bg-primary" style="width:{{width}}%;background-color:rgb(0,{{width}},{{width}})">{{count}}</div>
+    </div>
+    <br>
 </template>
 
 <template name="actionButtons">
     {{#if currentUser}}
     <div class="actionButtons">
-        {{#if isOwner}}
-            {{#unless isIncreasing}}
-            <button class="increase btn btn-warning btn-xs" data-toggle="tooltip" {{hasCoins}} title="Increase coins" data-qid="{{_id}}">
-                <span class="glyphicon glyphicon-plus"></span>
-            </button>
-            {{else}}
-                    <input type="number" class="input-xs" id="increaseCoins" />
-                        <button class="addCoins btn btn-warning btn-xs" type="button" data-qid="{{_id}}">Add! (max {{coins}} coins)</button>
-            {{/unless}}
-        {{/if}}
-            <button class="bomb btn btn-danger btn-xs" data-toggle="tooltip" {{isBombed}} {{isPraised}} title="Report this Q" data-qid="{{_id}}">
-                {{bombs.length}} <span class="glyphicon glyphicon-ban-circle"></span>
-            </button>
-            <button class="praise btn btn-success btn-xs" data-toggle="tooltip" {{isPraised}} {{isBombed}} title="Praise this Q"  data-qid="{{_id}}">
-                {{praises.length}} <span class="glyphicon glyphicon-thumbs-up"></span>
-            </button>
-        <button class="star btn btn-{{#if notInFav}}default{{else}}primary{{/if}} btn-xs" data-toggle="tooltip" title="Favorite this Q"  data-qid="{{_id}}">
+        {{#if isOwner}} {{#unless isIncreasing}}
+        <button class="increase btn btn-warning btn-xs" data-toggle="tooltip" {{hasCoins}} title="Increase coins" data-qid="{{_id}}">
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+        {{else}}
+        <input type="number" class="input-xs" id="increaseCoins" />
+        <button class="addCoins btn btn-warning btn-xs" type="button" data-qid="{{_id}}">Add! (max {{coins}} coins)</button>
+        {{/unless}} {{/if}}
+        <button class="bomb btn btn-danger btn-xs" data-toggle="tooltip" {{isBombed}} {{isPraised}} title="Report this Q" data-qid="{{_id}}">
+            {{bombs.length}} <span class="glyphicon glyphicon-ban-circle"></span>
+        </button>
+        <button class="praise btn btn-success btn-xs" data-toggle="tooltip" {{isPraised}} {{isBombed}} title="Praise this Q" data-qid="{{_id}}">
+            {{praises.length}} <span class="glyphicon glyphicon-thumbs-up"></span>
+        </button>
+        <button class="star btn btn-{{#if notInFav}}default{{else}}primary{{/if}} btn-xs" data-toggle="tooltip" title="Favorite this Q" data-qid="{{_id}}">
             <span class="glyphicon glyphicon-star{{#if notInFav}}-empty{{/if}}"></span>
         </button>
     </div>
@@ -186,12 +165,10 @@
 
 
 <template name="loadMore">
-    {{#if hasMore count}}
-
-    {{else}}
-        <div class="btn-group btn-group-justified mt10">
-            <a href="#" id="loadMore" class="center-block btn btn-primary">Load more</a>
-        </div>
+    {{#if hasMore count}} {{else}}
+    <div class="btn-group btn-group-justified mt10">
+        <a href="#" id="loadMore" class="center-block btn btn-primary">Load more</a>
+    </div>
     {{/if}}
 </template>
 

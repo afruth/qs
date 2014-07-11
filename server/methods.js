@@ -1,5 +1,5 @@
 Meteor.methods({
-    vote: function(question,answer) {
+    vote: function (question, answer) {
         check(question, String);
         check(answer, String);
 
@@ -8,26 +8,26 @@ Meteor.methods({
         //validating posibility to answer
 
         if (!uid)
-            throw new Meteor.Error(401,'User not allowed to answer.');
+            throw new Meteor.Error(401, 'User not allowed to answer.');
 
         //checking in question exists
         var q = Qs.findOne(question);
 
         if (!q)
-            throw new Meteor.Error(404,'Question not found.');
+            throw new Meteor.Error(404, 'Question not found.');
 
 
         //checking if answer is valid
-        var a = _.find(q.answers, function(item) {
-                if (item.answer === answer)
-                    return true;
+        var a = _.find(q.answers, function (item) {
+            if (item.answer === answer)
+                return true;
 
 
-                return false;
-                });
+            return false;
+        });
 
         if (!a)
-            throw new Meteor.Error(404,'Not a possible answer.');
+            throw new Meteor.Error(404, 'Not a possible answer.');
 
         //checking if not already answered
         var u = As.findOne({
@@ -36,7 +36,7 @@ Meteor.methods({
         })
 
         if (u)
-            throw new Meteor.Error(403,'Already voted!');
+            throw new Meteor.Error(403, 'Already voted!');
         /*
         var u = _.find(q.givenAnswers, function(item) {
             if (item.answererId === uid)
@@ -47,10 +47,10 @@ Meteor.methods({
         //everything ok. Let's do the voting
         Qs.update({
             _id: question,
-            'answers.answer' :answer
-        },{
+            'answers.answer': answer
+        }, {
             $push: {
-                givenAnswers : {
+                givenAnswers: {
                     answer: answer,
                     answererId: uid
                 }
@@ -59,9 +59,9 @@ Meteor.methods({
                 coins: -1,
                 'answers.$.number': 1
             }
-        }, function(e) {
+        }, function (e) {
             if (e)
-                throw new Meteor.Error(500,'Server problems');
+                throw new Meteor.Error(500, 'Server problems');
 
             As.insert({
                 qid: question,
@@ -72,15 +72,15 @@ Meteor.methods({
                 $inc: {
                     coins: 1
                 }
-            }, function(e){
+            }, function (e) {
                 if (e)
-                    throw new Meteor.Error(500,'Server problems');
+                    throw new Meteor.Error(500, 'Server problems');
 
                 return true;
             })
         });
     },
-    askQuestion: function(question) {
+    askQuestion: function (question) {
 
         check(question, Object);
         check(question.coins, Number);
@@ -90,16 +90,16 @@ Meteor.methods({
 
         //validating on server
         if (!question.text)
-            throw new Meteor.Error(500,'Question required');
+            throw new Meteor.Error(500, 'Question required');
 
         if (!question.answers || question.answers.length < 2 || question.answers.length > 6)
-            throw new Meteor.Error(500,'Answers not proper');
+            throw new Meteor.Error(500, 'Answers not proper');
 
         if (!this.userId)
-            throw new Meteor.Error(401,'You must be logged in!');
+            throw new Meteor.Error(401, 'You must be logged in!');
 
         if (Meteor.users.findOne(this.userId).coins - question.coins < -50)
-            throw new Meteor.Error(403,"You don't have enough coins");
+            throw new Meteor.Error(403, "You don't have enough coins");
 
 
         var id = Qs.insert({
@@ -107,19 +107,19 @@ Meteor.methods({
             answers: question.answers,
             ownerId: this.userId,
             coins: question.coins
-        }, function(e,s) {
+        }, function (e, s) {
             if (e) {
-                throw new Meteor.Error(500,"Server error");
+                throw new Meteor.Error(500, "Server error");
             } else {
                 Meteor.users.update({
                     _id: uid
-                },{
+                }, {
                     $inc: {
                         coins: -(question.coins - 50)
                     }
-                }, function(e,s){
+                }, function (e, s) {
                     if (e)
-                        throw new Meteor.Error(500,"Server error");
+                        throw new Meteor.Error(500, "Server error");
 
                     return true;
                 })
@@ -128,8 +128,8 @@ Meteor.methods({
 
         return (null, id)
     },
-    addCoins: function() {
-        Meteor.users.update({},{
+    addCoins: function () {
+        Meteor.users.update({}, {
             $set: {
                 coins: 1000
             }
@@ -137,40 +137,40 @@ Meteor.methods({
             multi: true
         })
     },
-    addToFavorites: function(qid) {
+    addToFavorites: function (qid) {
         check(qid, String);
 
         //add or remove from favorites the question
         //we first check if it exists
 
-        var itIs = _.find(Meteor.users.findOne(this.userId).profile.favorites,function(item){
+        var itIs = _.find(Meteor.users.findOne(this.userId).profile.favorites, function (item) {
             return item === qid;
         })
 
-        if (itIs) {//we have to remove then
+        if (itIs) { //we have to remove then
             Meteor.users.update(this.userId, {
                 $pull: {
                     'profile.favorites': qid
                 }
             })
             return true;
-            }
+        }
 
         Meteor.users.update(this.userId, {
-                $addToSet: {
-                    'profile.favorites': qid
-                }
-            })
-            return true;
+            $addToSet: {
+                'profile.favorites': qid
+            }
+        })
+        return true;
 
     },
-    bombQ: function(qid) {
+    bombQ: function (qid) {
         check(qid, String);
         that = this;
         //add or remove from favorites the question
         //we first check if it exists
 
-        var itIs = _.find(Qs.findOne(qid).bombs,function(item){
+        var itIs = _.find(Qs.findOne(qid).bombs, function (item) {
             return item === that.userId;
         })
 
@@ -178,26 +178,26 @@ Meteor.methods({
             return false;
 
         Qs.update(qid, {
-                $addToSet: {
-                    'bombs': that.userId
-                }
-            })
-            return true;
+            $addToSet: {
+                'bombs': that.userId
+            }
+        })
+        return true;
 
     },
-    praiseQ: function(qid) {
+    praiseQ: function (qid) {
         check(qid, String);
         that = this;
         //add or remove from favorites the question
         //we first check if it exists
 
-        var itIs = _.find(Qs.findOne(qid).praises,function(item){
+        var itIs = _.find(Qs.findOne(qid).praises, function (item) {
             return item === that.userId;
         });
         if (itIs) {
             return false;
         } else {
-        Qs.update(qid, {
+            Qs.update(qid, {
                 $addToSet: {
                     'praises': that.userId
                 },
@@ -208,15 +208,15 @@ Meteor.methods({
             return true;
         }
     },
-    randomAnswers: function(qid,number) {
+    randomAnswers: function (qid, number) {
         check(qid, String);
-        check(number,Number);
+        check(number, Number);
 
 
-        for (i=0;i<=number;i++) {
+        for (i = 0; i <= number; i++) {
             ansArr = Qs.findOne(qid).answers;
 
-            Qs.update(qid,{
+            Qs.update(qid, {
                 $addToSet: {
                     givenAnswers: {
                         answer: Random.choice(ansArr),
@@ -226,24 +226,24 @@ Meteor.methods({
             })
         }
     },
-    addToQuestion: function(qid,amount) {
-        check(qid,String);
-        check(amount,Number);
+    addToQuestion: function (qid, amount) {
+        check(qid, String);
+        check(amount, Number);
 
         if (!this.userId)
-            throw new Meteor.Error(401,"Not logged in!");
+            throw new Meteor.Error(401, "Not logged in!");
 
 
         var user = Meteor.users.findOne(this.userId);
 
-        if(amount < 0 && amount > user.coins)
-            throw new Meteor.Error(404,"Not enough coins!");
+        if (amount < 0 && amount > user.coins)
+            throw new Meteor.Error(404, "Not enough coins!");
 
-        Qs.update(qid,{
+        Qs.update(qid, {
             $inc: {
                 coins: amount
             }
-        }, function(e) {
+        }, function (e) {
             if (!e)
                 Meteor.users.update(user._id, {
                     $inc: {
@@ -253,13 +253,13 @@ Meteor.methods({
         })
 
     },
-    indexQs: function() {
+    indexQs: function () {
         var qs = Qs.find({}).fetch();
 
-        _.each(qs, function(i){
+        _.each(qs, function (i) {
             console.log(i._id);
-            Qs.index(i._id, function(e,s) {
-                if(e) {
+            Qs.index(i._id, function (e, s) {
+                if (e) {
                     console.log(e);
                 } else {
                     console.log('OK')

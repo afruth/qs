@@ -1,4 +1,7 @@
-Qs = new Meteor.Collection("qs", {search: true, autoindex: true});
+Qs = new Meteor.Collection("qs", {
+    search: true,
+    autoindex: true
+});
 
 var Schemas = {};
 
@@ -19,7 +22,7 @@ Schemas.Q = new SimpleSchema({
     },
     'answers.$.number': {
         type: Number,
-        label:""
+        label: ""
     },
     givenAnswers: {
         type: [Object],
@@ -52,13 +55,15 @@ Schemas.Q = new SimpleSchema({
     createdAt: {
         type: Date,
         label: "Date of creation",
-        autoValue: function() {
-           if (this.isInsert) {
-              return new Date;
+        autoValue: function () {
+            if (this.isInsert) {
+                return new Date;
             } else if (this.isUpsert) {
-              return {$setOnInsert: new Date};
+                return {
+                    $setOnInsert: new Date
+                };
             } else {
-              this.unset();
+                this.unset();
             }
         }
     }
