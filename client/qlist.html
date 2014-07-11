@@ -147,7 +147,7 @@
 
 <template name="shareButtons">
     <div class="shareButtons">
-        <span class="fbButton">{{>facebookShare config}}</span>
+        <div class="fb-share-button" data-type="button_count" data-href="{{config.href}}"></div>
         <a href="https://twitter.com/share" data-url="{{config.href}}" data-text="Help me answer this question on Q:" class="twitter-share-button" data-lang="en">Tweet</a>
     </div>
 </template>

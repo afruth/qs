@@ -2,19 +2,13 @@
   "meteor": {},
   "dependencies": {
     "basePackages": {
-      "moment": {},
       "bootstrap-3": {},
       "iron-router": {},
       "collection2": {},
       "iron-router-progress": {},
-      "font-awesome": {},
-      "roles": {},
-      "autoform": {},
       "gravatar": {},
       "bootstrap-errors": {},
       "accounts-templates-bootstrap": {},
-      "collection-helpers": {},
-      "bootstrap-wysiwyg": {},
       "meds": {},
       "underscore-string-latest": {},
       "headly": {},
@@ -25,11 +19,6 @@
       "iron-router-ga": {}
     },
     "packages": {
-      "moment": {
-        "git": "https://github.com/acreeger/meteor-moment.git",
-        "tag": "v2.6.0",
-        "commit": "26156df681750fd6e6ed77043eef32b6653ebbdf"
-      },
       "bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
         "tag": "v3.2.0-1",
@@ -50,21 +39,6 @@
         "tag": "v0.4.1",
         "commit": "496fcda9a6ec352b4733725f60c6f280250c3541"
       },
-      "font-awesome": {
-        "git": "https://github.com/nate-strauser/meteor-font-awesome.git",
-        "tag": "v4.1.0",
-        "commit": "ce6b1e92715d1938babc5d69c655c17e387f5926"
-      },
-      "roles": {
-        "git": "https://github.com/alanning/meteor-roles.git",
-        "tag": "v1.2.10",
-        "commit": "7ccb35de0a6cb0c9a0c3666badd04757e39c09a6"
-      },
-      "autoform": {
-        "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.14.0",
-        "commit": "30de032833052ea61e9d37bca5523264309d4478"
-      },
       "gravatar": {
         "git": "https://github.com/tmeasday/meteor-gravatar.git",
         "tag": "v0.0.4",
@@ -79,16 +53,6 @@
         "git": "https://github.com/splendido/accounts-templates-bootstrap.git",
         "tag": "v0.0.10",
         "commit": "3e1b8c9cc0675158ed9d382551cecdbdcd1c0380"
-      },
-      "collection-helpers": {
-        "git": "https://github.com/dburles/meteor-collection-helpers.git",
-        "tag": "v0.2.9",
-        "commit": "912be6d15a59b9ee4519bf73000be70dd141b655"
-      },
-      "bootstrap-wysiwyg": {
-        "git": "https://github.com/mcrider/meteor-bootstrap-wysiwyg.git",
-        "tag": "v0.1.0",
-        "commit": "b9b1ffadb42b8bbfade08aaea10e4fbe890d21dd"
       },
       "meds": {
         "git": "https://github.com/xdissent/meteor-meds.git",
@@ -152,8 +116,8 @@
       },
       "munit": {
         "git": "https://github.com/spacejamio/meteor-munit.git",
-        "tag": "v0.1.5",
-        "commit": "f238b864e014b633fab06412a0657e81e50f12b5"
+        "tag": "v0.2.0",
+        "commit": "9fbf742c3ea863d9d37f608d58f8fda646c01b2c"
       },
       "crypto-base": {
         "git": "https://github.com/oortcloud/meteor-crypto-base.git",

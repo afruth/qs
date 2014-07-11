@@ -1,5 +1,7 @@
 Qs = new Meteor.Collection("qs", {search: true, autoindex: true});
 
+var Schemas = {};
+
 Schemas.Q = new SimpleSchema({
     text: {
         type: String,
@@ -73,3 +75,17 @@ Schemas.Q = new SimpleSchema({
 
 Qs.attachSchema(Schemas.Q);
 
+As = new Meteor.Collection("as");
+
+Schemas.A = new SimpleSchema({
+    qid: {
+        type: String,
+        label: 'Question ID'
+    },
+    userId: {
+        type: String,
+        label: 'Answer author'
+    }
+});
+
+As.attachSchema(Schemas.A);
