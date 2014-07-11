@@ -58,7 +58,6 @@ Template.ask.events = {
 
         qobj = {
             text: question,
-            type: 'default',
             answers: arr,
             ownerId: Meteor.userId(),
             coins: totalCoins,

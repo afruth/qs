@@ -104,7 +104,6 @@ Meteor.methods({
 
         var id = Qs.insert({
             text: question.text,
-            type: question.type,
             answers: question.answers,
             ownerId: this.userId,
             coins: question.coins

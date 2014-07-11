@@ -9,15 +9,6 @@ Schemas.Q = new SimpleSchema({
         max: 500,
         index: 1
     },
-    type: {
-        type: String,
-        label: "Q type"
-    },
-    audience: {
-        type: [String],
-        label: "Audience",
-        optional: true
-    },
     answers: {
         type: [Object],
         label: "Answers"
