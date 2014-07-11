@@ -26,7 +26,7 @@ Router.map(function () {
     this.route('question', {
         path: '/q/:_id/*',
         waitOn: function () {
-            return [Meteor.subscribe('specificQuestion', this.params._id), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers', )]
+            return [Meteor.subscribe('specificQuestion', this.params._id), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
         },
         action: function () {
             Session.set('questionId', this.params._id);
