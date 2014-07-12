@@ -46,8 +46,8 @@ Template.questionDefault.helpers({
             return false;
 
         //his question
-        if (qid.ownerId === Meteor.userId())
-            return false;
+        //if (qid.ownerId === Meteor.userId())
+            //return false; TODO: remove this
 
         //out of coins
         if (qid.coins <= 0)
@@ -225,10 +225,8 @@ Template.qtemplate.events = {
     }
 }
 
-Template.qtemplateown.rendered = function () {
+Template.highchart.rendered = function () {
     var that = this;
-    Deps.autorun(function () {
-
         var que = Qs.findOne(that.data._id);
         q = que.answers;
         var preppedAnswer = [];
@@ -242,6 +240,7 @@ Template.qtemplateown.rendered = function () {
 
         var chartOpt = {
             chart: {
+                renderTo: that.data._id,
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false
@@ -271,8 +270,23 @@ Template.qtemplateown.rendered = function () {
                 enabled: false
             }
         }
+        var chart = new Highcharts.Chart(chartOpt);
+        //$("#" + que._id).highcharts(chartOpt);
 
-        $("#" + que._id).highcharts(chartOpt);
+
+    Deps.autorun(function () {
+        var que = Qs.findOne(that.data._id);
+        q = que.answers;
+        var preppedAnswer = [];
+        var totalA = 0;
+        _.each(q, function (item) {
+
+            preppedAnswer.push([item.answer, item.number]);
+
+            totalA = totalA + item.number;
+        })
+
+        chart.series[0].setData(preppedAnswer);
 
     })
 

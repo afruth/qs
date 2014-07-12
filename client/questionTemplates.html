@@ -36,7 +36,20 @@
 </template>
 
 <template name="questionDefault">
-    {{#if this.count}} {{#unless loggingIn}} {{#each this}} {{#if isAvailable this}} {{>qtemplate}} {{else}} {{>qtemplateown}} {{/if}} {{/each}} {{/unless}} {{>loadMore}} {{else}} {{>notFound}} {{/if}}
+    {{#if this.count}}
+        {{#unless loggingIn}}
+            {{#each this}}
+                {{#if isAvailable this}}
+                    {{>qtemplate}}
+                {{else}}
+                    {{>qtemplateown}}
+                {{/if}}
+            {{/each}}
+        {{/unless}}
+        {{>loadMore}}
+    {{else}}
+        {{>notFound}}
+    {{/if}}
 </template>
 
 
@@ -112,7 +125,7 @@
         </div>
         <div class="col-md-6">
             <div class="pad10 mt10">
-                <div class="highchart" id="{{_id}}"></div>
+                {{>highchart this}}
                 <!--{{#each preppedAnswers this}}
                     {{> prepAnswer}}
                 {{/each}}-->
@@ -187,4 +200,9 @@
 <template name="search">
     <h2>You searched for: {{searchQuery}} {{#if currentUser}}<button id='saveSearch' {{isSaved}} class="btn btn-xs btn-primary">{{#if isSaved}}Already saved{{else}}Save search{{/if}}</button>{{/if}}</h2>
     {{>questionDefault question}}
+</template>
+
+
+<template name="highchart">
+    <div class="highchart" id="{{_id}}"></div>
 </template>

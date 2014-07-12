@@ -44,6 +44,7 @@ Meteor.methods({
         });
         */
 
+
         //everything ok. Let's do the voting
         Qs.update({
             _id: question,
