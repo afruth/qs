@@ -287,6 +287,9 @@ Template.highchart.rendered = function () {
         })
 
         chart.series[0].setData(preppedAnswer);
+        chart.setTitle({
+                text: totalA + ' answers'
+            })
 
     })
 
