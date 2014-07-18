@@ -18,6 +18,7 @@ Meteor.publish("userData", function (userId) {
                 services: 1,
                 coins: 1,
                 createdAt: 1,
+                privateProfile: 1
             }
         });
     }

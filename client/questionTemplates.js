@@ -108,6 +108,11 @@ Template.question.created = function () {
         Meteor.subscribe('unansQuestions', Session.get('qlimit'));
     })
 }
+Template.question.rendered = function () {
+    try {
+        FB.XFBML.parse();
+    } catch (e) {}
+}
 
 Template.question.helpers({
     question: function () {
@@ -151,6 +156,9 @@ Template.question.helpers({
 
         return true;
 
+    },
+    href: function() {
+        return window.location;
     }
 });
 
@@ -245,6 +253,9 @@ Template.highchart.rendered = function () {
                 plotBorderWidth: null,
                 plotShadow: false
             },
+            credits: {
+                  enabled: false
+              },
             colors: [
                 '#EE3F25','#EEAA23','#595959','#5A4132','#2F3030','#C5B6A3'
             ],
@@ -380,6 +391,12 @@ Template.qtemplate.helpers({
 })
 
 Template.actionButtons.events = {
+    'click .flip-off': function (e) {
+        Session.set('flipped', $(e.currentTarget).data('qid'))
+    },
+    'click .flip-on': function (e) {
+        Session.set('flipped', '')
+    },
     'click .star': function (e) {
         Meteor.call('addToFavorites', $(e.currentTarget).data("qid"));
     },
@@ -407,6 +424,9 @@ Template.actionButtons.rendered = function () {
 };
 
 Template.actionButtons.helpers({
+    flipped: function () {
+        return Session.get('flipped') === this._id;
+    },
     notInFav: function () {
         that = this;
         var inFav = _.find(Meteor.user().profile.favorites, function (item) {
@@ -451,20 +471,7 @@ Template.actionButtons.helpers({
     }
 })
 
-Template.flipButton.events = {
-    'click .flip-off': function (e) {
-        Session.set('flipped', $(e.currentTarget).data('qid'))
-    },
-    'click .flip-on': function (e) {
-        Session.set('flipped', '')
-    }
-}
 
-Template.flipButton.helpers({
-    flipped: function () {
-        return Session.get('flipped') === this._id;
-    }
-})
 
 Template.shareButtons.helpers({
     location: function () {
@@ -481,7 +488,6 @@ Template.shareButtons.helpers({
 Template.shareButtons.rendered = function () {
     try {
         FB.XFBML.parse();
-        twttr.widgets.load();
     } catch (e) {}
 }
 

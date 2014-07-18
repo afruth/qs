@@ -14,26 +14,28 @@ Qs.allow({
 Accounts.onCreateUser(function (options, user) {
     if (user.services) {
         //we have services configured, let's see which one
-        if (user.services.facebook)
+        if (user.services.facebook) {
             picUrl = 'https://graph.facebook.com/' + user.services.facebook.id + '/picture';
 
-        if (user.services.twitter)
-            picUrl = user.services.twitter.profile_image_url;
-
-        if (user.services.google)
-            picUrl = user.services.google.picture;
-    } else if (user.emails && user.emails[0] && user.emails[0].address) {
-        picUrl = Gravatar.imageUrl(user.emails[0].address);
-    } else {
-        picUrl = 'https://contulmeu.reginamaria.ro/Poze/Uploads/no.jpg';
+            //getting more info
+            FB.api('/'+user.services.facebook.id, function(response) {
+                if (!response || response.error) {
+                    //error
+                    return false;
+                  } else {
+                    user.services.facebook.birthday = (response.birthday)?response.birthday:null;
+                    user.services.facebook.education = (response.education.type)?response.education.type:null;
+                  }
+            })
+        }
     }
 
 
     if (options.profile)
         user.profile = options.profile;
-    user.profile.avatar = picUrl;
-    user.coins = 5000;
-    return user;
+        user.profile.avatar = picUrl;
+        user.coins = 500;
+        return user;
 })
 
 
@@ -48,7 +50,7 @@ Meteor.headly.config({
         var randomH = Math.floor(Random.fraction() * 100) + 500
         var data = {}
         data.url = req.url;
-        data.image = 'http://placekitten.com/' + randomW + '/' + randomH; // we can run db-access code in the headly callback
+        data.image = 'qme.png' //'http://placekitten.com/' + randomW + '/' + randomH; // we can run db-access code in the headly callback
         data.title = 'Q, your gazilion useless assistants!'
         //checking if the url is a single question
         if (parts[1] === 'q') {
@@ -70,14 +72,13 @@ Meteor.headly.config({
 
     },
     facebook: function (data) {
-        console.log('hello facebook')
-        return '<meta property="og:title" content="' + data.title + '" />\n' + '<meta property="og:image" content="' + data.image + '" />\n' + '<meta property="og:description" content="' + data.content + '" />\n' + '<meta property="og:url" content="http://qme.meteor.com' + data.url + '" />\n';
+        return '<meta property="og:title" content="' + data.title + '" />\n'
+        + '<meta property="og:image" content="' + data.image + '" />\n'
+        + '<meta property="og:description" content="' + data.content + '" />\n'
+        + '<meta property="og:url" content="http://qme.meteor.com' + data.url + '" />\n';
 
     },
     twitter: function (data) {
-        console.log('hello twitter')
-
-
         return '<meta name="twitter:card" content="summary_large_image">\n' + '<meta name="twitter:site" content="@andreasfruth">\n' + '<meta name="twitter:title" content="' + data.title + '">\n' + '<meta name="twitter:description" content="Asked with Q">\n' + '<meta name="twitter:image:src" content="' + data.image + '">\n'
     }
 });

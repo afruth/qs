@@ -52,12 +52,7 @@
     padding-left: 100px;
     clear: left;
 }
-.actionButtons {
-    position: absolute;
-    right: 0;
-    top: 0;
-    float: left;
-}
+
 .flipButton {
     position: absolute;
     right: 0;
@@ -66,7 +61,7 @@
 }
 .shareButtons {
     position: absolute;
-    left: 10px;
+    left: 15px;
     bottom: 5px;
     float: left;
 }
@@ -106,6 +101,7 @@
 }
 body {
     padding-top: 70px;
+    background-color: #e9eaed;
 }
 .twitter-share-button {
     margin-bottom: -5px;
@@ -121,4 +117,9 @@ footer {
 
 .brand img {
     height:60px;
+}
+
+#increaseCoins {
+    height:22px;
+    width:60px;
 }
