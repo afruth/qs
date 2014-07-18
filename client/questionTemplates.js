@@ -245,6 +245,9 @@ Template.highchart.rendered = function () {
                 plotBorderWidth: null,
                 plotShadow: false
             },
+            colors: [
+                '#EE3F25','#EEAA23','#595959','#5A4132','#2F3030','#C5B6A3'
+            ],
             title: {
                 text: totalA + ' answers'
             },
@@ -287,6 +290,9 @@ Template.highchart.rendered = function () {
         })
 
         chart.series[0].setData(preppedAnswer);
+        chart.setTitle({
+                text: totalA + ' answers'
+            })
 
     })
 

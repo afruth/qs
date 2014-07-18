@@ -77,10 +77,10 @@
     padding-bottom: 30px;
 }
 .que.success {
-    border-color: #59822c;
+    border-color: rgb(238,60,35);
 }
 .que.info {
-    border-color: #2fa4e7;
+    border-color: rgb(238,146,34);
 }
 .user img,
 .profile-pic img {
@@ -94,30 +94,7 @@
 .at-social button {
     width: 220px;
 }
-select,
-textarea,
-input[type="text"],
-input[type="password"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="date"],
-input[type="month"],
-input[type="time"],
-input[type="week"],
-input[type="number"],
-input[type="email"],
-input[type="url"],
-input[type="search"],
-input[type="tel"],
-input[type="color"],
-.uneditable-input {
-    height: 43px;
-}
-input[type="number"].input-xs {
-    height: 26px;
-    margin-bottom: 0px;
-    max-width: 100px;
-}
+
 #atError {
     display: none;
 }
@@ -140,4 +117,8 @@ body {
 footer {
     padding-top: 20px;
     padding-bottom: 20px;
+}
+
+.brand img {
+    height:60px;
 }
