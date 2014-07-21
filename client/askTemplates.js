@@ -94,7 +94,7 @@ Template.ask.events = {
                           },
                           function(response) {
                             // handle the response
-                              if(!response.error)
+                              if(!response.error) {
                                   FB.api(
                                       'me/ro_questions:ask',
                                       'post',
@@ -106,8 +106,13 @@ Template.ask.events = {
                                         // handle the response
                                       }
                                     );
+                              } else {
+                                  console.log(response)
+                              }
                           }
                         );
+                    } else {
+                        console.log(e)
                     }
 
                 }, {scope: 'publish_actions'});
