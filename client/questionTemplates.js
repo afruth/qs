@@ -537,6 +537,9 @@ Template.shareButtons.rendered = function () {
     try {
         FB.XFBML.parse();
     } catch (e) {}
+    $('.comment-overlay').on('click', function(e){
+        e.stopPropagation();
+    })
 }
 
 Template.newQ.events = {

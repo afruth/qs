@@ -146,3 +146,20 @@ footer {
 .full {
     padding-top: 0px;
 }
+.comment-overlay {
+    position:absolute;
+    float:left;
+    height:16px;
+    width: 130px;
+    background-color:blue;
+    z-index:1000;
+    top:5px;
+    opacity:0;
+    display:block;
+}
+.comment-overlay:hover {
+    opacity:0.2;
+}
+.comment-count {
+    position:relative;
+}
