@@ -100,4 +100,8 @@ Router.map(function () {
         },
         fastRender: true
     });
+    this.route('privacy', {
+        path: '/privacy',
+        fastRender: true
+    })
 });

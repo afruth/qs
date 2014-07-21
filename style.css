@@ -60,18 +60,15 @@
     float: left;
 }
 .shareButtons {
-    left: 15px;
-    bottom: 5px;
-    float: left;
 }
 .shareButtons .fb-like, .shareButtons .comment-count {
     display:inline-block;
-    float:left;
 }
 
 .shareButtons .comment-count {
     padding-top:5px;
     margin-left:20px;
+    float:right;
 }
 .que {
     position: relative;
@@ -141,10 +138,11 @@ footer {
     width:100%;
 }
 
-#sidebar, #sidebar a {
-    padding-left: 0px !important;
+#sidebar {
+    width:150px;
+    float:left;
 }
 
-#sidebar {
-    padding-top:22px;
+.full {
+    padding-top: 0px;
 }

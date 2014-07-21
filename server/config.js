@@ -58,29 +58,42 @@ Meteor.headly.config({
         if (parts[1] === 'q') {
             data.title = Qs.findOne(parts[2]).text;
             data.content = 'Please help me by answering this question on Q.'
+
+            data.text = '<meta property="fb:app_id" content="267763216744350" /> \n' +
+              '<meta property="og:type"   content="ro_questions:question" /> \n' +
+              '<meta property="og:url"    content="'+ siteUrl + data.url + '" /> \n' +
+              '<meta property="og:title"  content="' + data.title + '" /> \n' +
+              '<meta property="og:image"  content="' + data.image + '" />\n' +
+              '<meta property="og:description" content="' + data.content + '" />\n'
         } else if (parts[1] === 'search') {
             data.title = 'See questions containing ' + parts[2] + ' on Q';
             data.content = "It's super easy to answer them and ask your own questions."
+            data.text = '<meta property="og:title" content="' + data.title + '" />\n'
+                        + '<meta property="og:image" content="' + data.image + '" />\n'
+                        + '<meta property="og:description" content="' + data.content + '" />\n'
+                        + '<meta property="og:url" content="'+ siteUrl + data.url + '" />\n';
         } else if (parts[1] === 'profile') {
             uname = Meteor.users.findOne(parts[2]).profile.name
             data.title = 'See questions asked by ' + uname + ' on Q';
             data.content = "It's super easy to answer them and ask your own questions."
+            data.text = '<meta property="og:title" content="' + data.title + '" />\n'
+                        + '<meta property="og:image" content="' + data.image + '" />\n'
+                        + '<meta property="og:description" content="' + data.content + '" />\n'
+                        + '<meta property="og:url" content="'+ siteUrl + data.url + '" />\n';
         } else {
             data.content = "It's super easy to answer Q's and ask your own."
             data.url = '/'
+            data.text = '<meta property="og:title" content="' + data.title + '" />\n'
+                        + '<meta property="og:image" content="' + data.image + '" />\n'
+                        + '<meta property="og:description" content="' + data.content + '" />\n'
+                        + '<meta property="og:url" content="'+ siteUrl + data.url + '" />\n';
         }
 
         return data;
 
     },
     facebook: function (data) {
-        return '<meta property="og:title" content="' + data.title + '" />\n'
-        + '<meta property="og:image" content="' + data.image + '" />\n'
-        + '<meta property="og:description" content="' + data.content + '" />\n'
-        + '<meta property="og:url" content="'+ siteUrl + data.url + '" />\n';
+        return data.text;
 
-    },
-    twitter: function (data) {
-        return '<meta name="twitter:card" content="summary_large_image">\n' + '<meta name="twitter:site" content="@andreasfruth">\n' + '<meta name="twitter:title" content="' + data.title + '">\n' + '<meta name="twitter:description" content="Asked with Q">\n' + '<meta name="twitter:image:src" content="' + data.image + '">\n'
     }
 });

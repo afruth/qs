@@ -6,14 +6,12 @@
       "iron-router": {},
       "collection2": {},
       "iron-router-progress": {},
-      "gravatar": {},
       "bootstrap-errors": {},
       "accounts-templates-bootstrap": {},
       "meds": {},
       "underscore-string-latest": {},
       "headly": {},
       "kadira": {},
-      "facebook-sdk": {},
       "highcharts-with-exporting": {},
       "fast-render": {},
       "iron-router-ga": {}
@@ -38,11 +36,6 @@
         "git": "https://github.com/Multiply/iron-router-progress.git",
         "tag": "v0.4.1",
         "commit": "496fcda9a6ec352b4733725f60c6f280250c3541"
-      },
-      "gravatar": {
-        "git": "https://github.com/tmeasday/meteor-gravatar.git",
-        "tag": "v0.0.4",
-        "commit": "d1052ff4401725c23fb199c0e0a36e29b926bc22"
       },
       "bootstrap-errors": {
         "git": "https://github.com/lezed1/meteor-bootstrap-errors.git",
@@ -71,13 +64,8 @@
       },
       "kadira": {
         "git": "https://github.com/meteorhacks/kadira.git",
-        "tag": "v2.4.8",
-        "commit": "5f4437af113537def34484c7b7a2a5e4d60847a9"
-      },
-      "facebook-sdk": {
-        "git": "https://github.com/hugesuccess/facebook-sdk.git",
-        "tag": "v0.0.44",
-        "commit": "cb71b860085ec6453b61644b31f6351e7de2c1b0"
+        "tag": "v2.4.9",
+        "commit": "8bb902989917522822a0897117672ae858c23427"
       },
       "highcharts-with-exporting": {
         "git": "https://github.com/wahyuaw/meteor-highcharts-with-exporting.git",
@@ -91,8 +79,8 @@
       },
       "iron-router-ga": {
         "git": "https://github.com/reywood/meteor-iron-router-ga.git",
-        "tag": "v0.2.4",
-        "commit": "4f65a5bf9c600582214ff9e91ee760f3fbad85eb"
+        "tag": "v0.2.5",
+        "commit": "ede54c4633f9a54fddd5c431202a88284df2a932"
       },
       "blaze-layout": {
         "git": "https://github.com/EventedMind/blaze-layout.git",
@@ -101,13 +89,8 @@
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",
-        "tag": "v0.5.1",
-        "commit": "a29956b34d03a4591dbd0eaed9d37009ef48b8db"
-      },
-      "crypto-md5": {
-        "git": "https://github.com/oortcloud/meteor-crypto-md5.git",
-        "tag": "v3.1.2.2",
-        "commit": "75bbb3eeace302122d3554a6212a6fe92553fa18"
+        "tag": "v0.6.0",
+        "commit": "418ec496612fb2afc853e342f0d2269b6674a2fe"
       },
       "accounts-templates-core": {
         "git": "https://github.com/splendido/accounts-templates-core.git",
@@ -119,15 +102,10 @@
         "tag": "v0.2.0",
         "commit": "9fbf742c3ea863d9d37f608d58f8fda646c01b2c"
       },
-      "crypto-base": {
-        "git": "https://github.com/oortcloud/meteor-crypto-base.git",
-        "tag": "v3.1.2.1",
-        "commit": "5df8d82a0595553415bbfae2930c6ecbeece5794"
-      },
       "accounts-t9n": {
         "git": "https://github.com/splendido/meteor-accounts-t9n.git",
         "branch": "master",
-        "commit": "9189c58aeba752d3e369f9fad5e1f718d90d2b3f"
+        "commit": "4a8c8ab468cec8601f953205d24eb884a4e7749b"
       },
       "chai": {
         "git": "https://github.com/spacejamio/meteor-chai.git",

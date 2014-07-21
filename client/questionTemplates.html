@@ -79,9 +79,10 @@
             <p>{{#each answers}}
                 <button class="btn btn-primary answerButton" id="{{this.answer}}" data-qid="{{../_id}}">{{this.answer}}</button>
                 {{/each}}</p>
+            </div>
+
         </div>
-                {{>shareButtons}}
-        </div>
+         <div class="panel-footer">{{>shareButtons}}</div>
     </div>
 
 </template>
@@ -121,8 +122,8 @@
                 {{/each}}-->
             </div>
         </div>
-         {{>shareButtons}}
         </div>
+        <div class="panel-footer">{{>shareButtons}}</div>
     </div>
 </template>
 

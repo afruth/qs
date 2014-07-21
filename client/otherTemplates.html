@@ -17,21 +17,15 @@
     <div id="fb-root"></div>
     <div class="wrapper">
         <div class="box">
-
-            <div class="row row-offcanvas row-offcanvas-left">
-
-
-                <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+                <div class="column" id="sidebar">
                     <ul class="nav">
                         <li>
-                            <a href="#" data-toggle="offcanvas" class="text-center">
-                                <i class="glyphicon glyphicon-align-justify"></i>
-                            </a>
+                            <a class="brand" href="/"><img src="/whiteQme.png">Q's</a>
                         </li>
                     </ul>
                     {{#if currentUser}}
 
-                    <ul class="nav hidden-xs" id="lg-menu">
+                    <ul class="nav" id="lg-menu">
                         <div class="profile-pic">
                             <img src="{{user.profile.avatar}}" />
                             <span class="uname">{{user.profile.name}}<br>{{user.coins}} coins.</span>
@@ -85,43 +79,6 @@
                             </li>
                             {{/each}} {{/if}}
                     </ul>
-                    <ul class="nav visible-xs" id="xs-menu">
-                        <li>
-                            <img src="{{user.profile.avatar}}" />
-                        </li>
-                        <li>
-                                <a href="/ask" class="text-center">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/qlist" class="text-center">
-                                    <i class="glyphicon glyphicon-list"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="/flist" class="text-center">
-                                    <i class="glyphicon glyphicon-heart"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/mylist" class="text-center">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                </a>
-                            </li>
-
-                            <li>
-                                <hr>
-                                <a href="#" id="logout" class="text-center">
-                                    <i class="glyphicon glyphicon-log-out"></i>
-
-                                </a>
-                            </li>
-                    </ul>
-
-
-
                         {{else}}
                     {{#unless loggingIn}}
                     <ul class="nav" id="logout-large">
@@ -138,14 +95,7 @@
 
 
 
-            <div class="column col-sm-10 col-xs-11" id="main">
-
-            <nav class="navbar navbar-blue navbar-static-top" role="navigation">
-                 <div class="navbar-inner">
-                        <a class="brand" href="/"> <img src="/whiteQme.png"></a>
-                   </div>
-            </nav>
-                <div class="padding">
+            <div class="column" id="main">
                     <div class="full col-sm-9">
                         <div class="row">
                     {{>meteorErrors}}
@@ -166,10 +116,8 @@
                     </footer>
                 </div>
                     </div>
-                </div>
 
 
-                </div>
                 </div>
     </div>
 </div>
