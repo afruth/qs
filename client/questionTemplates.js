@@ -27,9 +27,10 @@ Template.favorites.helpers({
 Template.questionDefault.helpers({
     isAvailable: function (qid) {
         //we check if the user can vote
-        //not logged in
+        /*not logged in
         if (!Meteor.user() && !Meteor.loggingIn())
             return false;
+            */
 
         //already answered
         var hasAnswered = As.findOne({
@@ -226,10 +227,57 @@ Template.qtemplate.events = {
         e.preventDefault();
         var question = $(e.target).data("qid");
         var answer = $(e.target).attr("id");
-        Meteor.call('vote', question, answer, function (e, s) {
-            if (e)
-                Errors.throw(e.reason);
-        });
+        if (Meteor.user()) {
+            Meteor.call('vote', question, answer, function (e, s) {
+                if (e) {
+                    Errors.throw(e.reason);
+                } else {
+                    //
+                    FB.api(
+                      'me/ro_questions:answer',
+                      'post',
+                      {
+                        access_token: Meteor.user().services.facebook.accessToken,
+                        question: qHref(s)
+                      },
+                      function(response) {
+                        console.log(response)
+                      }
+                    );
+                }
+
+            });
+        } else {
+            Meteor.loginWithFacebook({
+                requestPermissions: ['publish_actions']
+            },function(e) {
+                if(e) {
+
+                } else {
+                    Meteor.call('vote', question, answer, function (e, s) {
+                        if (e) {
+                            Errors.throw(e.reason);
+                        } else {
+                            FB.api(
+                              'me/ro_questions:answer',
+                              'post',
+                              {
+                                access_token: Meteor.user().services.facebook.accessToken,
+                                question: qHref(s)
+                              },
+                              function(response) {
+                                console.log(response)
+                              }
+                            );
+                        }
+
+
+                    });
+                }
+
+            })
+        }
+
     }
 }
 
@@ -257,7 +305,7 @@ Template.highchart.rendered = function () {
                   enabled: false
               },
             colors: [
-                '#EE3F25','#EEAA23','#595959','#5A4132','#2F3030','#C5B6A3'
+                '#97ABD9','#2E67C2','#14B4E0','#70D9E0','#BDDADE'
             ],
             title: {
                 text: totalA + ' answers'

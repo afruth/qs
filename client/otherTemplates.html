@@ -15,105 +15,164 @@
 
 <template name="mainLayout">
     <div id="fb-root"></div>
+    <div class="wrapper">
+        <div class="box">
 
-    <nav class="navbar navbar-blue navbar-fixed-top" role="navigation">
-         <div class="navbar-inner">
-             <div class="container">
-                <a class="brand" href="/"> <img src="/whiteQme.png"></a>
-             </div>
-           </div>
-    </nav>
-    <div class="container">
-        <div class="row">
-            {{>meteorErrors}}
-        </div>
+            <div class="row row-offcanvas row-offcanvas-left">
 
-        <div class="row">
 
-            <div class="yield col-sm-12 col-md-9">
+                <div class="column col-sm-2 col-xs-1 sidebar-offcanvas" id="sidebar">
+                    <ul class="nav">
+                        <li>
+                            <a href="#" data-toggle="offcanvas" class="text-center">
+                                <i class="glyphicon glyphicon-align-justify"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    {{#if currentUser}}
 
-                {{>yield}}
-            </div>
+                    <ul class="nav hidden-xs" id="lg-menu">
+                        <div class="profile-pic">
+                            <img src="{{user.profile.avatar}}" />
+                            <span class="uname">{{user.profile.name}}<br>{{user.coins}} coins.</span>
+                        </div>
+                            <li>
+                                <a href="/ask">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                  Ask a Q
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/">
+                                    <i class="glyphicon glyphicon-list"></i>
+                                  Latest Q's
+                                </a>
+                            </li>
 
-            <div class="profile col-sm-12 col-md-3" role="navigation">
-                <form>
-                    <div class="input-group pt20">
+                            <li>
+                                <a href="/flist">
+                                    <i class="glyphicon glyphicon-heart"></i>
+                                  My favorite Q's
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/mylist">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                  My Q's
+                                </a>
+                            </li>
 
-                        <input type="text" class="form-control" id="search">
-                        <span class="input-group-btn">
-                        <button type="submit" class="btn btn-primary submitSearch">Search</button>
-                    </span>
+                            <li>
+                                <hr>
+                                <a href="#" id="logout">
+                                    <i class="glyphicon glyphicon-off"></i>
+                                  Logout
+                                </a>
+                            </li>
+                            {{#if user.profile.savedSearches}}
+                            <li class="disabled">
+                                <h4>Saved searches</h4>
+                            </li>
+                            {{#each user.profile.savedSearches}}
+                            <li>
+                                <a href="/search/{{safeUrl this}}">
+                                                {{this}}
+                                                <button class="btn btn-danger btn-xs delSearch pull-right" data-qid="{{this}}">
+                                                    X
+                                                </button>
+                                            </a>
+
+                            </li>
+                            {{/each}} {{/if}}
+                    </ul>
+                    <ul class="nav visible-xs" id="xs-menu">
+                        <li>
+                            <img src="{{user.profile.avatar}}" />
+                        </li>
+                        <li>
+                                <a href="/ask" class="text-center">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/qlist" class="text-center">
+                                    <i class="glyphicon glyphicon-list"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/flist" class="text-center">
+                                    <i class="glyphicon glyphicon-heart"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/mylist" class="text-center">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </a>
+                            </li>
+
+                            <li>
+                                <hr>
+                                <a href="#" id="logout" class="text-center">
+                                    <i class="glyphicon glyphicon-log-out"></i>
+
+                                </a>
+                            </li>
+                    </ul>
+
+
+
+                        {{else}}
+                    {{#unless loggingIn}}
+                    <ul class="nav" id="logout-large">
+                        <li>
+                            <a href="#" id="login-large" class="text-center">
+                                <i class="glyphicon glyphicon-log-in"></i>
+                                Login
+                            </a>
+                        </li>
+                    </ul>
+                     {{/unless}} {{/if}}
 
                     </div>
-                </form>
-                {{#if currentUser}}
-                <h2>Your profile</h2>
-                <div class="profile-pic">
-                    <img src="{{user.profile.avatar}}" />
-                    <span class="uname">{{user.profile.name}}</span>
-                    <div class="userCoins">You have {{user.coins}} coins.</div>
+
+
+
+            <div class="column col-sm-10 col-xs-11" id="main">
+
+            <nav class="navbar navbar-blue navbar-static-top" role="navigation">
+                 <div class="navbar-inner">
+                        <a class="brand" href="/"> <img src="/whiteQme.png"></a>
+                   </div>
+            </nav>
+                <div class="padding">
+                    <div class="full col-sm-9">
+                        <div class="row">
+                    {{>meteorErrors}}
                 </div>
-                <ul class="nav nav-pills nav-stacked mainNav">
-                    <li>
-                        <a href="/ask" class="btn-success">
-                          Ask a Q
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/">
-                          Latest Q's
-                        </a>
-                    </li>
 
-                    <li>
-                        <a href="/flist">
-                          My favorite Q's
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/mylist">
-                          My Q's
-                        </a>
-                    </li>
+                <div class="row">
 
-                    <li>
-                        <a href="#" id="logout" class="btn-warning">
-                          Logout
-                        </a>
-                    </li>
-                    {{#if user.profile.savedSearches}}
-                    <li class="disabled">
-                        <h4>Saved searches</h4>
-                    </li>
-                    {{#each user.profile.savedSearches}}
-                    <li>
-                        <a href="/search/{{safeUrl this}}">
-                                        {{this}}
-                                        <button class="btn btn-danger btn-xs delSearch pull-right" data-qid="{{this}}">
-                                            X
-                                        </button>
-                                    </a>
+                    <div class="yield col-sm-12 col-md-9">
 
-                    </li>
-                    {{/each}} {{/if}}
-
-                </ul>
-                {{else}} {{#unless loggingIn}}
-                <h2>Sign up / Sign in</h2>
-                <p>In order to get the best of this app, you need to create an account using one of your social media accounts. Don't worry, we are not getting anything about you except your profile picture, your name and your email for multiple social media account unification. We won't spam you (except for sending kittens your way from time to time)</p>
-                {{> signinForm}} {{/unless}} {{/if}}
-
-            </div>
+                        {{>yield}}
+                    </div>
 
 
 
-        </div>
-        <div class="col-md-12">
-            <footer>Many thanks to Sacha Greif for the great logo, and to Meteor for the amazing platform.
-            </footer>
-        </div>
+                </div>
+                <div class="col-md-12">
+                    <footer>Many thanks to Sacha Greif for the great logo, and to Meteor for the amazing platform.
+                    </footer>
+                </div>
+                    </div>
+                </div>
+
+
+                </div>
+                </div>
     </div>
-
+</div>
 </template>
 
 

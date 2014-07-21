@@ -60,10 +60,18 @@
     float: left;
 }
 .shareButtons {
-    position: absolute;
     left: 15px;
     bottom: 5px;
     float: left;
+}
+.shareButtons .fb-like, .shareButtons .comment-count {
+    display:inline-block;
+    float:left;
+}
+
+.shareButtons .comment-count {
+    padding-top:5px;
+    margin-left:20px;
 }
 .que {
     position: relative;
@@ -82,6 +90,11 @@
     width: 48px;
     min-height: 40px;
     background-image: url('defaultuser.png') center no-repeat;
+    float:left;
+    margin-right:20px;
+}
+.profile-pic {
+    margin-bottom:20px;
 }
 .userCoins: {
     text-align: right;
@@ -122,4 +135,16 @@ footer {
 #increaseCoins {
     height:22px;
     width:60px;
+}
+
+#xs-menu img {
+    width:100%;
+}
+
+#sidebar, #sidebar a {
+    padding-left: 0px !important;
+}
+
+#sidebar {
+    padding-top:22px;
 }

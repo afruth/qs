@@ -1,3 +1,16 @@
+
+    ServiceConfiguration.configurations.remove({
+        service: "facebook"
+    });
+
+   ServiceConfiguration.configurations.insert({
+        service: "facebook",
+        appId: '267763216744350',
+        secret: '9d51f2c4b2f523b53a3d40fa2722d751'
+    });
+
+
+
 Qs.allow({
     insert: function (doc) {
         return true;
@@ -16,17 +29,6 @@ Accounts.onCreateUser(function (options, user) {
         //we have services configured, let's see which one
         if (user.services.facebook) {
             picUrl = 'https://graph.facebook.com/' + user.services.facebook.id + '/picture';
-
-            //getting more info
-            FB.api('/'+user.services.facebook.id, function(response) {
-                if (!response || response.error) {
-                    //error
-                    return false;
-                  } else {
-                    user.services.facebook.birthday = (response.birthday)?response.birthday:null;
-                    user.services.facebook.education = (response.education.type)?response.education.type:null;
-                  }
-            })
         }
     }
 
@@ -50,7 +52,7 @@ Meteor.headly.config({
         var randomH = Math.floor(Random.fraction() * 100) + 500
         var data = {}
         data.url = req.url;
-        data.image = 'qme.png' //'http://placekitten.com/' + randomW + '/' + randomH; // we can run db-access code in the headly callback
+        data.image = siteUrl+'/qme.png' //'http://placekitten.com/' + randomW + '/' + randomH; // we can run db-access code in the headly callback
         data.title = 'Q, your gazilion useless assistants!'
         //checking if the url is a single question
         if (parts[1] === 'q') {
@@ -75,7 +77,7 @@ Meteor.headly.config({
         return '<meta property="og:title" content="' + data.title + '" />\n'
         + '<meta property="og:image" content="' + data.image + '" />\n'
         + '<meta property="og:description" content="' + data.content + '" />\n'
-        + '<meta property="og:url" content="http://qme.meteor.com' + data.url + '" />\n';
+        + '<meta property="og:url" content="'+ siteUrl + data.url + '" />\n';
 
     },
     twitter: function (data) {

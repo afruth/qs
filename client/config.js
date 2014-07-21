@@ -1,13 +1,14 @@
 window.fbAsyncInit = function () {
     FB.init({
-        appId: '636219033141500',
+        appId: '267763216744350',
         status: true,
-        xfbml: true
+        xfbml: true,
+        frictionlessRequests : true
     });
 };
 
 Accounts.ui.config({
     requestPermissions: {
-        facebook: ['user_likes', 'public_profile']
+        facebook: ['email', 'public_profile', 'user_friends','publish_actions']
     }
 });

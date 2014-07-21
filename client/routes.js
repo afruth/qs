@@ -24,7 +24,7 @@ Router.onRun(function () {
 
 Router.map(function () {
     this.route('question', {
-        path: '/q/:_id/*',
+        path: '/q/:_id/*:text',
         waitOn: function () {
             return [Meteor.subscribe('specificQuestion', this.params._id), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
         },
@@ -81,7 +81,7 @@ Router.map(function () {
         fastRender: true
     });
     this.route('profile', {
-        path: '/profile/:_id/*',
+        path: '/profile/:_id/*:text',
         waitOn: function () {
             if (this.params._id === 'me') {
                 userDataId = Meteor.userId()

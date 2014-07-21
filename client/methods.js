@@ -59,7 +59,7 @@ Meteor.methods({
                 coins: -1,
                 'answers.$.number': 1
             }
-        }, function (e) {
+        }, function (e,s) {
             if (e)
                 throw new Meteor.Error(500, 'Server problems');
 
@@ -76,9 +76,12 @@ Meteor.methods({
                 if (e)
                     throw new Meteor.Error(500, 'Server problems');
 
-                return true;
-            })
+
+            });
+
         });
+       // console.log(q)
+        return (null,q);
     },
     askQuestion: function (question) {
 
@@ -121,12 +124,14 @@ Meteor.methods({
                     if (e)
                         throw new Meteor.Error(500, "Server error");
 
-                    return true;
+
                 })
             }
         });
 
-        return (null, id)
+        return (null, Qs.findOne(id));
+
+
     },
     addToFavorites: function (qid) {
         check(qid, String);

@@ -1,6 +1,12 @@
 Meteor.subscribe('allUsers');
 
 Template.mainLayout.events = {
+    'click #login-large': function(e) {
+        e.preventDefault();
+        Meteor.loginWithFacebook({
+            requestPermissions: ['email', 'public_profile', 'user_friends']
+        });
+    },
     'click #askAQ': function (e) {
         Session.set('action', 'ask');
         Router.go('ask');
@@ -50,6 +56,18 @@ Template.mainLayout.helpers({
     }
 })
 
+Template.mainLayout.rendered = function() {
+            /* off-canvas sidebar toggle */
+$('[data-toggle=offcanvas]').click(function() {
+  	$(this).toggleClass('visible-xs text-center');
+    $(this).find('i').toggleClass('glyphicon-chevron-left');
+    $('.row-offcanvas').toggleClass('active');
+    $('#lg-menu').toggleClass('hidden-xs').toggleClass('visible-xs');
+    $('#xs-menu').toggleClass('visible-xs').toggleClass('hidden-xs');
+    $('#btnShow').toggle();
+});
+
+}
 
 //needed to show picture
 

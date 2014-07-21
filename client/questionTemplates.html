@@ -17,8 +17,10 @@
 
 <template name="question">
     {{>questionDefault question}}
-    <div class="col-md-12">
-        <div class="fb-comments" data-href="{{href}}" data-numposts="10" data-colorscheme="light" data-width="100%"></div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="fb-comments" data-href="{{href}}" data-numposts="10" data-colorscheme="light" data-width="100%"></div>
+        </div>
     </div>
 </template>
 
@@ -68,7 +70,7 @@
         <div class="panel-heading">
             <a href="/profile/{{username._id}}/{{username.slug}}">
                     <img src="{{username.profile.avatar}}" />
-                </a><a href="/q/{{_id}}/{{slug this}}">{{username.profile.name}} asked the following Q:</a>
+                </a><a href="/q/{{_id}}/{{slug this}}">{{username.profile.name}} asked:</a>
             {{>actionButtons}}
         </div>
         <div class="panel-body">
@@ -90,7 +92,7 @@
         <div class="panel-heading">
             <a href="/profile/{{username._id}}/{{username.slug}}">
                     <img src="{{username.profile.avatar}}" />
-                </a><a href="/q/{{_id}}/{{slug this}}">{{username.profile.name}} asked the following Q:</a>
+                </a><a href="/q/{{_id}}/{{slug this}}"><br>{{username.profile.name}}</a>
             {{>actionButtons}}
         </div>
         <div class="panel-body">
@@ -165,11 +167,6 @@
     {{/if}}
 </template>
 
-<template name="flipButton">
-
-</template>
-
-
 <template name="loadMore">
     {{#if hasMore count}} {{else}}
     <div class="btn-group btn-group-justified mt10">
@@ -181,6 +178,8 @@
 <template name="shareButtons">
     <div class="shareButtons">
         <div class="fb-like" data-href="{{config.href}}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
+        <div class="comment-count"><iframe src="http://www.facebook.com/plugins/comments.php?href={{config.href}}&permalink=1" scrolling="no" frameborder="0"
+                style="border:none; overflow:hidden; width:130px; height:16px;" allowTransparency="true"></iframe></div>
     </div>
 </template>
 

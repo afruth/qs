@@ -71,10 +71,57 @@ Template.ask.events = {
                 return;
             }
 
+            console.log(e,r);
             Session.set('action', 'answer');
-            Router.go('question', {
-                _id: r
-            })
+
+            //var q = Qs.findOne({_id:r});
+            //console.log(q)
+            if(r) {
+
+                FB.login(function (e) {
+                    if (!e.error) {
+                        FB.api(
+                          'me/objects/ro_questions:question',
+                          'post',
+                          {
+                            access_token: Meteor.user().services.facebook.accessToken,
+                            app_id: 267763216744350,
+                            type: "ro_questions:ask",
+                            url: qHref(r),
+                            title: 'Answer my Q',
+                            image: siteUrl + '/qme.png',
+                            description: r.text
+                          },
+                          function(response) {
+                            // handle the response
+                              if(!response.error)
+                                  FB.api(
+                                      'me/ro_questions:ask',
+                                      'post',
+                                      {
+                                        access_token: Meteor.user().services.facebook.accessToken,
+                                        question: qHref(r)
+                                      },
+                                      function(response) {
+                                        // handle the response
+                                      }
+                                    );
+                          }
+                        );
+                    }
+
+                }, {scope: 'publish_actions'});
+
+
+
+
+
+                Router.go('question', {
+                    _id: r._id,
+                    text: _.slugify(_(r.text).prune(60))
+                })
+            }
+
         });
 
 
