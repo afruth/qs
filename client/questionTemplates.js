@@ -103,13 +103,9 @@ Template.profile.helpers({
     }
 });
 
-Template.question.created = function () {
-    Session.set('qlimit', 20);
-    Deps.autorun(function () {
-        Meteor.subscribe('unansQuestions', Session.get('qlimit'));
-    })
-}
+
 Template.question.rendered = function () {
+    Meteor.subscribe('allUsers',[this.ownerId])
     try {
         FB.XFBML.parse();
     } catch (e) {}
@@ -203,6 +199,7 @@ Template.qlist.created = function () {
     Session.set('qlimit', 20);
     Deps.autorun(function () {
         Meteor.subscribe('allQuestions', Session.get('qlimit'));
+        Meteor.subscribe('qlistUsers', Session.get('qlimit'));
     })
 }
 
@@ -403,8 +400,12 @@ Template.qtemplateown.helpers({
         var user = Meteor.users.findOne({
             _id: owner
         });
-        user.slug = _.slugify(user.profile.name);
-        return user;
+        if (user) {
+            user.slug = _.slugify(user.profile.name);
+            return user;
+        } else {
+            return false;
+        }
     },
     notInFav: function () {
         that = this;
@@ -428,8 +429,12 @@ Template.qtemplate.helpers({
         var user = Meteor.users.findOne({
             _id: owner
         });
-        user.slug = _.slugify(user.profile.name);
-        return user;
+         if (user) {
+            user.slug = _.slugify(user.profile.name);
+            return user;
+        } else {
+            return false;
+        }
     },
     slug: function (q) {
         return _.slugify(_(q.text).prune(60));
@@ -474,8 +479,6 @@ Template.actionButtons.helpers({
         //we check if the user can vote
         //not logged in
         qid = this;
-        if (!Meteor.user() && !Meteor.loggingIn())
-            return false;
 
         //already answered
         var hasAnswered = As.findOne({
@@ -493,9 +496,6 @@ Template.actionButtons.helpers({
 
         //out of coins
         if (qid.coins <= 0)
-            return false;
-
-        if (qid._id === Session.get('flipped'))
             return false;
 
         return true;
@@ -583,6 +583,7 @@ Template.search.created = function () {
     Session.set('qlimit', 20);
     Deps.autorun(function () {
         Meteor.subscribe('searchQuestions', Session.get('qlimit'), Session.get('searchText'));
+        Meteor.subscribe('searchUsers', Session.get('qlimit'), Session.get('searchText'));
     })
 }
 

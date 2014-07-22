@@ -24,7 +24,7 @@ Router.onRun(function () {
 
 Router.map(function () {
     this.route('question', {
-        path: '/q/:_id/*:text',
+        path: '/q/:_id/*',
         waitOn: function () {
             return [Meteor.subscribe('specificQuestion', this.params._id), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
         },
@@ -44,7 +44,7 @@ Router.map(function () {
     this.route('qlist', {
         path: '/',
         waitOn: function () {
-            return [Meteor.subscribe('allQuestions', 20), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
+            return [Meteor.subscribe('allQuestions', 20), Meteor.subscribe('qlistUsers', 20), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
         },
         fastRender: true
     });
@@ -72,7 +72,7 @@ Router.map(function () {
     this.route('search', {
         path: '/search/:_id',
         waitOn: function () {
-            return [Meteor.subscribe('searchQuestions', 20, this.params._id), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
+            return [Meteor.subscribe('searchQuestions', 20, this.params._id), Meteor.subscribe('searchUsers', 20, this.params._id), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
         },
         action: function () {
             Session.set('searchText', decodeURIComponent(this.params._id));

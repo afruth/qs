@@ -1,15 +1,4 @@
 Meteor.publish("userData", function (userId) {
-
-    if (!userId)
-        return Meteor.users.find({}, {
-            fields: {
-                services: 0,
-                coins: 0,
-                createdAt: 0
-            }
-        });
-
-
     if (userId === this.userId) {
         return Meteor.users.find({
             _id: this.userId
@@ -24,7 +13,63 @@ Meteor.publish("userData", function (userId) {
     }
 })
 Meteor.publish("allUsers", function () {
-    return Meteor.users.find({}, {
+    return Meteor.users.find({
+        _id: {
+            $in: arr
+        }
+    }, {
+        fields: {
+            services: 0,
+            coins: 0,
+            createdAt: 0
+        }
+    });
+})
+
+Meteor.publish("qlistUsers", function (limit) {
+    var qius = Qs.find({}, {
+        sort: {
+            createdAt: -1
+        },
+        limit: limit,
+        fields: {
+            givenAnswers: 0
+        }
+    }).fetch();
+    var mappedQius = _.map(qius, function(i) {
+        return i.ownerId;
+    });
+
+    return Meteor.users.find({
+        _id: {
+            $in: mappedQius
+        }
+    }, {
+        fields: {
+            services: 0,
+            coins: 0,
+            createdAt: 0
+        }
+    });
+})
+
+Meteor.publish("searchUsers", function (query,limit) {
+    var qius = Qs.search(query, {
+        limit: limit,
+        sort: [['createdAt', 'desc']],
+        fields: {
+            givenAnswers: false
+        }
+    }).fetch();
+    var mappedQius = _.map(qius, function(i) {
+        return i.ownerId;
+    });
+
+    return Meteor.users.find({
+        _id: {
+            $in: mappedQius
+        }
+    }, {
         fields: {
             services: 0,
             coins: 0,
