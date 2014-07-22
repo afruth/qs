@@ -16,6 +16,7 @@ Template.favorites.helpers({
                 $in: favoriteQ
             }
         }, {
+            limit: Session.get('qlimit'),
             sort: {
                 createdAt: -1
             }
@@ -74,6 +75,7 @@ Template.mylist.helpers({
         return Qs.find({
             ownerId: Meteor.userId()
         }, {
+            limit: Session.get('qlimit'),
             sort: {
                 createdAt: -1
             }
@@ -96,6 +98,7 @@ Template.profile.helpers({
         return Qs.find({
             ownerId: Session.get('userProfile')
         }, {
+            limit: Session.get('qlimit'),
             sort: {
                 createdAt: -1
             }
@@ -174,6 +177,7 @@ Template.qlist.helpers({
                 $lte: Session.get('lastDate')
             }
         }, {
+            limit: Session.get('qlimit'),
             sort: {
                 createdAt: -1
             }
@@ -299,7 +303,8 @@ Template.highchart.rendered = function () {
                 renderTo: that.data._id,
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
-                plotShadow: false
+                plotShadow: false,
+                animation: true
             },
             credits: {
                   enabled: false
@@ -595,7 +600,9 @@ Template.search.helpers({
         return Session.get('searchText');
     },
     question: function () {
-        return Qs.search(Session.get('searchText'));
+        return Qs.search(Session.get('searchText'),{
+            limit: Session.get('qlimit')
+        });
     },
     isSaved: function () {
         var us = Meteor.users.findOne({

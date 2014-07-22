@@ -43,7 +43,7 @@ Meteor.publish("qlistUsers", function (limit) {
         sort: {
             createdAt: -1
         },
-        limit: limit,
+        limit: limit + 20,
         fields: {
             givenAnswers: 0
         }
@@ -67,7 +67,7 @@ Meteor.publish("qlistUsers", function (limit) {
 
 Meteor.publish("searchUsers", function (query,limit) {
     var qius = Qs.search(query, {
-        limit: limit,
+        limit: limit + 20,
         sort: [['createdAt', 'desc']],
         fields: {
             givenAnswers: false
@@ -97,7 +97,7 @@ Meteor.publish("myQuestions", function (limit, userId) {
         sort: {
             createdAt: -1
         },
-        limit: limit,
+        limit: limit + 20,
         fields: {
             givenAnswers: 0
         }
@@ -119,7 +119,7 @@ Meteor.publish("favQuestions", function (limit) {
         sort: {
             createdAt: -1
         },
-        limit: limit,
+        limit: limit + 20,
         fields: {
             givenAnswers: 0
         }
@@ -131,7 +131,7 @@ Meteor.publish("allQuestions", function (limit) {
         sort: {
             createdAt: -1
         },
-        limit: limit,
+        limit: limit + 20,
         fields: {
             givenAnswers: 0
         }
@@ -150,7 +150,7 @@ Meteor.publish("specificQuestion", function (qid) {
 
 Meteor.publish("searchQuestions", function (limit, query) {
     return Qs.search(query, {
-        limit: limit,
+        limit: limit + 20,
         sort: [['createdAt', 'desc']],
         fields: {
             givenAnswers: false

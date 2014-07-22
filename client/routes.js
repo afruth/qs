@@ -46,6 +46,10 @@ Router.map(function () {
         waitOn: function () {
             return [Meteor.subscribe('allQuestions', 20), Meteor.subscribe('qlistUsers', 20), Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
         },
+        action: function () {
+            Session.set('searchText', '');
+            this.render()
+        },
         fastRender: true
     });
     this.route('unanswered', {

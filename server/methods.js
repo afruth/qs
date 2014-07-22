@@ -214,21 +214,48 @@ Meteor.methods({
             return true;
         }
     },
-    randomAnswers: function (qid, number) {
+    randomAnswers: function (qid, number, totalRand) {
+        this.unblock();
         check(qid, String);
         check(number, Number);
 
+        if(totalRand & totalRand == true) {
+            questions = Qs.find().fetch();
+        }
+
+
 
         for (i = 0; i <= number; i++) {
+            if (questions) {
+                question = Random.choice(questions);
+                //console.log('Question',question);
+                qid = question._id;
+            }
+
+
             ansArr = Qs.findOne(qid).answers;
 
-            Qs.update(qid, {
-                $addToSet: {
+            answer = Random.choice(ansArr);
+            answererId = Random.id();
+            Qs.update({
+                _id: qid,
+                'answers.answer': answer.answer
+            } , {
+                $push: {
                     givenAnswers: {
-                        answer: Random.choice(ansArr),
-                        answererId: Random.id()
+                        answer: answer.answer,
+                        answererId: answererId
                     }
+                },
+                $inc: {
+                    //coins: -1,
+                    'answers.$.number': 1
                 }
+            })
+
+            As.insert({
+                qid: qid,
+                userId: answererId
             })
         }
     },
