@@ -211,6 +211,9 @@ Template.loadMore.events = {
 }
 
 Template.loadMore.helpers({
+    isSolo: function() {
+        return Session.get('questionId');
+    },
     hasMore: function (count) {
         if (count < Session.get('qlimit'))
             return true;
@@ -302,7 +305,7 @@ Template.highchart.rendered = function () {
                   enabled: false
               },
             colors: [
-                '#97ABD9','#2E67C2','#14B4E0','#70D9E0','#BDDADE'
+                '#35235D','#DB2464','#CB2402','#B8DC3C','#4C49A2', '#A31A48'
             ],
             title: {
                 text: totalA + ' answers'

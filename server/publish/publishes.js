@@ -12,11 +12,24 @@ Meteor.publish("userData", function (userId) {
         });
     }
 })
-Meteor.publish("allUsers", function () {
-    return Meteor.users.find({
-        _id: {
-            $in: arr
+Meteor.publish("profileData", function (userId) {
+        return Meteor.users.find({
+            _id: userId
+        });
+})
+
+
+Meteor.publish('qUser', function(qid) {
+   var uid = Qs.findOne({
+        _id: qid
+    }, {
+        fields: {
+            ownerId: 1
         }
+    }).ownerId;
+
+    return Meteor.users.find({
+        _id: uid
     }, {
         fields: {
             services: 0,
@@ -24,8 +37,7 @@ Meteor.publish("allUsers", function () {
             createdAt: 0
         }
     });
-})
-
+});
 Meteor.publish("qlistUsers", function (limit) {
     var qius = Qs.find({}, {
         sort: {

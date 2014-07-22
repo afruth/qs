@@ -5,7 +5,7 @@
     Meteor.startup(function () {
       connectHandler.use(function (req, res, next) {
         res.setHeader('Strict-Transport-Security', 'max-age=2592000; includeSubDomains'); // 2592000s / 30 days
-        res.setHeader('Access-Control-Allow-Origin','*.facebook.com')
+        //res.setHeader('Access-Control-Allow-Origin','*.facebook.com')
         return next();
       })
       ServiceConfiguration.configurations.remove({
