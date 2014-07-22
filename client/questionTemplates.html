@@ -50,6 +50,7 @@
 
 
 <template name="qlist">
+    {{>searchBar}}
     <h2>Latest Q's</h2>
     {{#with newQuestion}} {{>newQ newQuestion}} {{/with}} {{>questionDefault question}}
 
@@ -187,6 +188,7 @@
 </template>
 
 <template name="search">
+    {{>searchBar}}
     <h2>You searched for: {{searchQuery}} {{#if currentUser}}<button id='saveSearch' {{isSaved}} class="btn btn-xs btn-primary">{{#if isSaved}}Already saved{{else}}Save search{{/if}}</button>{{/if}}</h2>
     {{>questionDefault question}}
 </template>
@@ -194,4 +196,15 @@
 
 <template name="highchart">
     <div class="highchart" id="{{_id}}"></div>
+</template>
+
+<template name="searchBar">
+    <div class="searchBar">
+         <div class="input-group">
+              <input type="text" value="{{currentQuery}}" id="search" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-primary submitSearch" type="button">Search</button>
+              </span>
+            </div><!-- /input-group -->
+    </div>
 </template>

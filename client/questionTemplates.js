@@ -616,3 +616,19 @@ Template.search.events = {
         })
     }
 }
+
+Template.searchBar.events = {
+    'click .submitSearch': function (e) {
+        e.preventDefault();
+
+        if ($('#search').val() != '')
+            Router.go('search', {
+                _id: encodeURIComponent($('#search').val())
+            })
+    }
+}
+Template.searchBar.helpers({
+    currentQuery: function() {
+        return Session.get('searchText');
+    }
+})

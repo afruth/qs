@@ -15,14 +15,6 @@ Template.mainLayout.events = {
         e.preventDefault();
         Meteor.logout();
     },
-    'click .submitSearch': function (e) {
-        e.preventDefault();
-
-        if ($('#search').val() != '')
-            Router.go('search', {
-                _id: encodeURIComponent($('#search').val())
-            })
-    },
     'click .delSearch': function (e) {
         e.preventDefault();
         e.stopPropagation();
