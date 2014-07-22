@@ -417,9 +417,7 @@ Template.qtemplateown.helpers({
 
         return true;
     },
-    flipped: function () {
-        return Session.get('flipped') === this._id;
-    },
+
     slug: function (q) {
         return _.slugify(_(q.text).prune(60));
     }
@@ -472,6 +470,37 @@ Template.actionButtons.rendered = function () {
 };
 
 Template.actionButtons.helpers({
+    isAvailable: function () {
+        //we check if the user can vote
+        //not logged in
+        qid = this;
+        if (!Meteor.user() && !Meteor.loggingIn())
+            return false;
+
+        //already answered
+        var hasAnswered = As.findOne({
+            qid: qid._id,
+            userId: Meteor.userId()
+        });
+
+        /*
+        var hasAnswered = _.find(qid.givenAnswers, function(item){
+            return item.answererId === Meteor.userId();
+        });*/
+
+        if (hasAnswered)
+            return false;
+
+        //out of coins
+        if (qid.coins <= 0)
+            return false;
+
+        if (qid._id === Session.get('flipped'))
+            return false;
+
+        return true;
+
+    },
     flipped: function () {
         return Session.get('flipped') === this._id;
     },

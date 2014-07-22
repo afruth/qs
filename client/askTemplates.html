@@ -30,13 +30,14 @@
         </div>
     </div>
     <div class="col-md-12 pt20">
-        <button class="btn btn-default center-block" id="saveQ">Save your changes!</button>
+        <button class="btn btn-primary center-block" id="saveQ">Submit your Q!</button>
     </div>
     {{else}}
     <div class="col-md-12">
         <h2>Congrats! Your Q is now travelling on the internets!</h2>
-        <p>You can see it in all it's glory <a href="/">on the front page.</a>
+        <p>You can see it in all it's glory below. Please don't forget to share it on Facebook so that your friends can see and answer it!
         </p>
+        {{>questionDefault question}}
     </div>
     {{/if}}
 </template>

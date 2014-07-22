@@ -163,3 +163,7 @@ footer {
 .comment-count {
     position:relative;
 }
+
+.questionTxt {
+    font-size:1.6em;
+}

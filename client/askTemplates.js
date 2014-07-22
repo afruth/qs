@@ -3,6 +3,7 @@
 //CREATED
 Template.ask.created = function () {
     Session.set('action', 'ask');
+    Session.set('qid',false);
     answerArray = [
         {
             id: Random.id(),
@@ -71,8 +72,11 @@ Template.ask.events = {
                 return;
             }
 
-            console.log(e,r);
+            console.log('R is',e,r);
             Session.set('action', 'answer');
+            Meteor.subscribe('specificQuestion', r._id);
+
+            Session.set('qid',r);
 
             //var q = Qs.findOne({_id:r});
             //console.log(q)
@@ -81,50 +85,22 @@ Template.ask.events = {
                 FB.login(function (e) {
                     if (!e.error) {
                         FB.api(
-                          'me/objects/ro_questions:question',
+                          'me/ro_questions:ask',
                           'post',
                           {
                             access_token: Meteor.user().services.facebook.accessToken,
-                            app_id: 267763216744350,
-                            type: "ro_questions:ask",
-                            url: qHref(r),
-                            title: 'Answer my Q',
-                            image: siteUrl + '/qme.png',
-                            description: r.text
+                            question: qHref(r)
                           },
                           function(response) {
-                            // handle the response
-                              if(!response.error) {
-                                  FB.api(
-                                      'me/ro_questions:ask',
-                                      'post',
-                                      {
-                                        access_token: Meteor.user().services.facebook.accessToken,
-                                        question: qHref(r)
-                                      },
-                                      function(response) {
-                                        // handle the response
-                                      }
-                                    );
-                              } else {
-                                  console.log(response)
-                              }
+                            console.log('Ask',response)
                           }
-                        );
+                        )
                     } else {
-                        console.log(e)
+                        console.log('Question',e)
                     }
 
                 }, {scope: 'publish_actions'});
 
-
-
-
-
-                Router.go('question', {
-                    _id: r._id,
-                    text: _.slugify(_(r.text).prune(60))
-                })
             }
 
         });
@@ -166,6 +142,9 @@ Template.ask.helpers({
     },
     isAsk: function () {
         return Session.get('action') === 'ask';
+    },
+    question: function() {
+        return Qs.find(Session.get('qid'));
     }
 });
 

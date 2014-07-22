@@ -93,7 +93,7 @@
         <div class="panel-heading">
             <a href="/profile/{{username._id}}/{{username.slug}}">
                     <img src="{{username.profile.avatar}}" />
-                </a><a href="/q/{{_id}}/{{slug this}}"><br>{{username.profile.name}}</a>
+                </a><a href="/q/{{_id}}/{{slug this}}">{{username.profile.name}} asked:</a>
             {{>actionButtons}}
         </div>
         <div class="panel-body">
@@ -107,7 +107,7 @@
             </div>
             <div class="question">
 
-                <p>{{text}}</p>
+                <p class="questionTxt">{{text}}</p>
             </div>
             <!--
             <div class="answerLength">
@@ -140,16 +140,13 @@
     {{#if currentUser}}
     <div class="actionButtons pull-right">
         <div class="btn-group">
-            {{#if flipped}}
+            {{#if isAvailable}}
                 <button class="flip{{#if flipped}}-on{{else}}-off{{/if}} btn btn-{{#if flipped}}warning{{else}}default{{/if}} btn-xs" data-toggle="tooltip" title="Flip this" data-qid="{{_id}}">
                     <span class="glyphicon glyphicon-random"></span>
                 </button>
             {{/if}}
             <button class="bomb btn btn-danger btn-xs" data-toggle="tooltip" {{isBombed}} {{isPraised}} title="Report this Q" data-qid="{{_id}}">
                 {{bombs.length}} <span class="glyphicon glyphicon-ban-circle"></span>
-            </button>
-            <button class="praise btn btn-success btn-xs" data-toggle="tooltip" {{isPraised}} {{isBombed}} title="Praise this Q" data-qid="{{_id}}">
-                {{praises.length}} <span class="glyphicon glyphicon-thumbs-up"></span>
             </button>
             <button class="star btn btn-{{#if notInFav}}default{{else}}primary{{/if}} btn-xs" data-toggle="tooltip" title="Favorite this Q" data-qid="{{_id}}">
                 <span class="glyphicon glyphicon-star{{#if notInFav}}-empty{{/if}}"></span>

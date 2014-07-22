@@ -1,13 +1,25 @@
 
-    ServiceConfiguration.configurations.remove({
+    var connectHandler = WebApp.connectHandlers; // get meteor-core's connect-implementation
+
+    // attach connect-style middleware for response header injection
+    Meteor.startup(function () {
+      connectHandler.use(function (req, res, next) {
+        res.setHeader('Strict-Transport-Security', 'max-age=2592000; includeSubDomains'); // 2592000s / 30 days
+        res.setHeader('Access-Control-Allow-Origin','*.facebook.com')
+        return next();
+      })
+      ServiceConfiguration.configurations.remove({
         service: "facebook"
     });
 
-   ServiceConfiguration.configurations.insert({
-        service: "facebook",
-        appId: '267763216744350',
-        secret: '9d51f2c4b2f523b53a3d40fa2722d751'
-    });
+       ServiceConfiguration.configurations.insert({
+            service: "facebook",
+            appId: '267763216744350',
+            secret: '9d51f2c4b2f523b53a3d40fa2722d751'
+        });
+
+    })
+
 
 
 

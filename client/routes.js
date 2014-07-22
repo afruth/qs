@@ -96,7 +96,7 @@ Router.map(function () {
     this.route('ask', {
         path: '/ask',
         waitOn: function () {
-            return [Meteor.subscribe('userData', Meteor.userId())]
+            return [Meteor.subscribe('userData', Meteor.userId()), Meteor.subscribe('answers')]
         },
         fastRender: true
     });
