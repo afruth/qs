@@ -216,10 +216,12 @@ Template.loadMore.events = {
 
 Template.loadMore.helpers({
     isSolo: function() {
-        return Session.get('questionId');
+
+        return !Session.equals('questionId',undefined);
     },
     hasMore: function (count) {
-        if (count < Session.get('qlimit'))
+
+        if (count >= Session.get('qlimit'))
             return true;
 
         return false;

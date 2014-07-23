@@ -168,10 +168,12 @@
 
 <template name="loadMore">
     {{#unless isSolo}}
-        {{#if hasMore count}} {{else}}
-        <div class="btn-group btn-group-justified mt10">
-            <a href="#" id="loadMore" class="center-block btn btn-primary">Load more</a>
-        </div>
+        {{#if hasMore this.count}}
+            <div class="btn-group btn-group-justified mt10">
+                <a href="#" id="loadMore" class="center-block btn btn-primary">Load more</a>
+            </div>
+            {{else}}
+
         {{/if}}
     {{/unless}}
 </template>
