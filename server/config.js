@@ -68,15 +68,20 @@ Meteor.headly.config({
         data.title = 'Q, your gazilion useless assistants!'
         //checking if the url is a single question
         if (parts[1] === 'q') {
-            data.title = Qs.findOne(parts[2]).text;
-            data.content = 'Please help me by answering this question on Q.'
+            var q = Qs.findOne(parts[2]);
+            data.title = q.text;
+            ansArray = _.map(q.answers, function(i){
+                return i.answer;
+            })
+            data.content = ansArray.join(' | ');
 
             data.text = '<meta property="fb:app_id" content="267763216744350" /> \n' +
               '<meta property="og:type"   content="ro_questions:question" /> \n' +
               '<meta property="og:url"    content="'+ siteUrl + data.url + '" /> \n' +
               '<meta property="og:title"  content="' + data.title + '" /> \n' +
               '<meta property="og:image"  content="' + data.image + '" />\n' +
-              '<meta property="og:description" content="' + data.content + '" />\n'
+              '<meta property="og:description" content="' + data.content + '" />\n';
+
         } else if (parts[1] === 'search') {
             data.title = 'See questions containing ' + parts[2] + ' on Q';
             data.content = "It's super easy to answer them and ask your own questions."

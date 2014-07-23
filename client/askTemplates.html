@@ -35,9 +35,10 @@
     {{else}}
     <div class="col-md-12">
         <h2>Congrats! Your Q is now travelling on the internets!</h2>
-        <p>You can see it in all it's glory below. Please don't forget to share it on Facebook so that your friends can see and answer it!
+        <p>If you want your friends to answer it why don't you share it on Facebook?
+            {{>shareOnFacebook}}
         </p>
-        {{>questionDefault question}}
+
     </div>
     {{/if}}
 </template>
@@ -50,5 +51,12 @@
         <span class="input-group-btn">
             <button class="btn btn-danger delButton" id="{{id}}" data-id="{{id}}" type="button">Delete</button>
         </span>
+    </div>
+</template>
+
+<template name="shareOnFacebook">
+    <div class="sharers">
+        <div class="fb-like" data-href="{{share}}" data-layout="button" data-action="like" data-share="true"></div><br>
+        <a href="{{share}}">Or go directly to he question</a>
     </div>
 </template>

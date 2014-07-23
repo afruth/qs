@@ -142,9 +142,6 @@ Template.ask.helpers({
     },
     isAsk: function () {
         return Session.get('action') === 'ask';
-    },
-    question: function() {
-        return Qs.find(Session.get('qid'));
     }
 });
 
@@ -164,3 +161,15 @@ Template.answer.events = {
         Session.set('answerArr', filteredArray);
     }
 }
+
+Template.shareOnFacebook.rendered = function() {
+     try {
+        FB.XFBML.parse();
+    } catch (e) {}
+}
+
+Template.shareOnFacebook.helpers({
+    share: function() {
+        return qHref(Session.get('qid'));
+    }
+})
