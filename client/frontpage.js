@@ -18,8 +18,6 @@ Template.mainLayout.events = {
             })
     },
     'click .delSearch': function (e) {
-
-      
         e.preventDefault();
         e.stopPropagation();
         var search = $(e.currentTarget).data('qid');
